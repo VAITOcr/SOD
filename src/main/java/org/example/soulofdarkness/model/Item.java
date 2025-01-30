@@ -1,5 +1,12 @@
 package org.example.soulofdarkness.model;
 
-public class Item {
-    
+public interface Item {
+
+    String getName();
+
+    String getDescription();
+
+    String getType();
+
+    void use();
 }
