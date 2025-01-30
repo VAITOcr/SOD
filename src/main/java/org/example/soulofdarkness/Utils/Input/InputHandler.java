@@ -1,6 +1,6 @@
-package com.example.souls_of_darkness.input;
+package org.example.soulofdarkness.Utils.Input;
 
-import com.example.souls_of_darkness.ui.GameView;
+import org.example.soulofdarkness.Ui.GameView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -37,6 +37,3 @@ public class InputHandler {
         return maze[y][x] == 1; // Le joueur peut se déplacer seulement sur les chemins
     }
 }
-
-
-

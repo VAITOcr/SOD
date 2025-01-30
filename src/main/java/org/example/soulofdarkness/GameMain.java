@@ -1,14 +1,19 @@
-package com.example.souls_of_darkness;
+package org.example.soulofdarkness;
 
-import com.example.souls_of_darkness.ui.GameView;
-import com.example.souls_of_darkness.input.InputHandler;
+import java.io.IOException;
+
+import org.example.soulofdarkness.Ui.GameView;
+import org.example.soulofdarkness.Utils.Input.InputHandler;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class GameMain extends Application {
     private static final int MAZE_WIDTH = 21;
     private static final int MAZE_HEIGHT = 21;
 
@@ -41,4 +46,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

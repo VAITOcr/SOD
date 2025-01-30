@@ -1,4 +1,4 @@
-package com.example.souls_of_darkness.game;
+package org.example.soulofdarkness.model;
 
 import java.util.Random;
 
@@ -21,8 +21,8 @@ public class Enemy {
     }
 
     public void moveRandomly(int[][] maze) {
-        int[] dx = {0, 0, -1, 1};
-        int[] dy = {-1, 1, 0, 0};
+        int[] dx = { 0, 0, -1, 1 };
+        int[] dy = { -1, 1, 0, 0 };
         int dir = random.nextInt(4);
 
         int newX = x + dx[dir];
@@ -38,6 +38,11 @@ public class Enemy {
         return this.x == playerX && this.y == playerY;
     }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

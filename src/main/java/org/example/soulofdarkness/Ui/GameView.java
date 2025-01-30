@@ -1,7 +1,8 @@
-package com.example.souls_of_darkness.ui;
+package org.example.soulofdarkness.Ui;
 
-import com.example.souls_of_darkness.game.MazeGenerator;
-import com.example.souls_of_darkness.game.Enemy;
+import org.example.soulofdarkness.model.Enemy;
+import org.example.soulofdarkness.model.MazeGenerator;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -79,12 +80,14 @@ public class GameView extends Canvas {
 
         // Dessiner le joueur en bleu
         gc.setFill(Color.BLUE);
-        gc.fillOval(playerX * TILE_SIZE + TILE_SIZE / 4, playerY * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2, TILE_SIZE / 2);
+        gc.fillOval(playerX * TILE_SIZE + TILE_SIZE / 4, playerY * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2,
+                TILE_SIZE / 2);
 
         // Dessiner les ennemis en rouge
         gc.setFill(Color.RED);
         for (Enemy enemy : enemies) {
-            gc.fillOval(enemy.getX() * TILE_SIZE + TILE_SIZE / 4, enemy.getY() * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2, TILE_SIZE / 2);
+            gc.fillOval(enemy.getX() * TILE_SIZE + TILE_SIZE / 4, enemy.getY() * TILE_SIZE + TILE_SIZE / 4,
+                    TILE_SIZE / 2, TILE_SIZE / 2);
         }
     }
 }

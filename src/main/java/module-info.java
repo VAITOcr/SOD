@@ -5,7 +5,9 @@ module org.example.soulofdarkness {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires javafx.graphics;
 
     opens org.example.soulofdarkness to javafx.fxml;
+
     exports org.example.soulofdarkness;
 }
