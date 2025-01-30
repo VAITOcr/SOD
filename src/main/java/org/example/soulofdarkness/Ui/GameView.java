@@ -2,6 +2,7 @@ package org.example.soulofdarkness.Ui;
 
 import org.example.soulofdarkness.model.Enemy;
 import org.example.soulofdarkness.model.MazeGenerator;
+import org.example.soulofdarkness.model.Player;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,7 +15,8 @@ public class GameView extends Canvas {
     private static final int TILE_SIZE = 30; // Taille d'une case
     private MazeGenerator mazeGenerator;
     private int[][] maze;
-    private int playerX = 1, playerY = 1; // Position du joueur
+    private Player player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100);
+    // private int playerX = 1, playerY = 1; // Position du joueur
     private List<Enemy> enemies = new ArrayList<>(); // Liste des ennemis
 
     public GameView(int width, int height) {
@@ -36,9 +38,9 @@ public class GameView extends Canvas {
         }
     }
 
-    public void updatePlayerPosition(int x, int y) {
-        this.playerX = x;
-        this.playerY = y;
+    public void updatePlayerPosition(int playerX, int playerY) {
+        player.movePlayer(playerX, playerY);
+        // Mettre à jour la position du joueur et des ennemis
         checkEnemyCollision();
         drawMaze();
     }
@@ -52,7 +54,7 @@ public class GameView extends Canvas {
 
     private void checkEnemyCollision() {
         for (Enemy enemy : enemies) {
-            if (enemy.checkCollision(playerX, playerY)) {
+            if (enemy.checkCollision(player.getX(), player.getY())) {
                 System.out.println("💀 Combat engagé avec un ennemi !");
                 // Ici, on pourra appeler un `CombatSystem`
             }
@@ -80,7 +82,7 @@ public class GameView extends Canvas {
 
         // Dessiner le joueur en bleu
         gc.setFill(Color.BLUE);
-        gc.fillOval(playerX * TILE_SIZE + TILE_SIZE / 4, playerY * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2,
+        gc.fillOval(player.getX() * TILE_SIZE + TILE_SIZE / 4, player.getY() * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2,
                 TILE_SIZE / 2);
 
         // Dessiner les ennemis en rouge

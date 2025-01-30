@@ -1,14 +1,10 @@
 package org.example.soulofdarkness;
 
-import java.io.IOException;
-
 import org.example.soulofdarkness.Ui.GameView;
 import org.example.soulofdarkness.Utils.Input.InputHandler;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
