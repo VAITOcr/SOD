@@ -1,6 +1,5 @@
 package org.example.soulofdarkness;
 
-import javax.print.attribute.standard.Media;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -11,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class GameMainController extends Application {
+public class GameMainMenuController extends Application {
 
     @FXML
     private Pane GifMainMenu;
