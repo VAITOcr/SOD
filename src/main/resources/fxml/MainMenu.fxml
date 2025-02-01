@@ -5,20 +5,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="MainMenuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="MainMenuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1043.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="GifMainMenu" layoutX="1.0" prefHeight="730.0" prefWidth="894.0" />
-      <Button fx:id="ExitButton" layoutX="324.0" layoutY="548.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝙴𝚇𝙸𝚃" textFill="WHITE" onAction="#closeGame">
+      <Pane fx:id="GifMainMenu" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1043.0" prefWidth="1279.0" />
+      <Button fx:id="ExitButton" layoutX="516.0" layoutY="825.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝙴𝚇𝙸𝚃" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
       </Button>
-      <Button fx:id="StartButton" layoutX="324.0" layoutY="467.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝚂𝚃𝙰𝚁𝚃" textFill="WHITE" onAction="#startGame">
+      <Button fx:id="StartButton" layoutX="516.0" layoutY="714.0" mnemonicParsing="false" onAction="#startGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝚂𝚃𝙰𝚁𝚃" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
       </Button>
-      <Text fill="#f50707" layoutX="197.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="𝓢𝓞𝓤𝓛 𝓞𝓕 𝓓𝓐𝓡𝓚𝓝𝓔𝓢𝓢">
+      <Text fill="#f50707" layoutX="389.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="𝓢𝓞𝓤𝓛 𝓞𝓕 𝓓𝓐𝓡𝓚𝓝𝓔𝓢𝓢">
          <font>
             <Font size="45.0" />
          </font>

@@ -12,7 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class GameMainMenuController extends Application {
@@ -31,11 +33,12 @@ public class GameMainMenuController extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         loader.setController(this);
         Parent root = loader.load();
+        
 
         // Affichage du gif pour fond menu
         ImageView gifView = new ImageView(getClass().getResource("/gif/mainMenu.gif").toString());
-        gifView.setFitHeight(730);
-        gifView.setFitWidth(894);
+        gifView.setFitWidth(1279);
+        gifView.setFitHeight(1043);
         GifMainMenu.getChildren().add(gifView);
 
         // Musique de fond
@@ -44,9 +47,10 @@ public class GameMainMenuController extends Application {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.1);
 
         Scene scene = new Scene(root);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("Souls of Darkness - Rogue-Like");
         primaryStage.setScene(scene);
         primaryStage.show();
