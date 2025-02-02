@@ -1,12 +1,18 @@
 package org.example.soulofdarkness;
 
+import org.example.soulofdarkness.Ui.GameView;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -28,12 +34,15 @@ public class GameMainMenuController extends Application {
     @FXML
     private Button ExitButton;
 
+    private Stage primaryStage;
+    private MediaPlayer mediaPlayer;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         loader.setController(this);
         Parent root = loader.load();
-        
 
         // Affichage du gif pour fond menu
         ImageView gifView = new ImageView(getClass().getResource("/gif/mainMenu.gif").toString());
@@ -44,10 +53,10 @@ public class GameMainMenuController extends Application {
         // Musique de fond
         String ostPath = getClass().getResource("/sound/MainMenuOST.mp3").toString();
         Media media = new Media(ostPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.1);
+        this.mediaPlayer = new MediaPlayer(media);
+        this.mediaPlayer.play();
+        this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        this.mediaPlayer.setVolume(0.1);
 
         Scene scene = new Scene(root);
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -76,10 +85,42 @@ public class GameMainMenuController extends Application {
 
     @FXML
     private void startGame() throws Exception {
-        Stage stage = new Stage();
-        stage.setTitle("Souls of Darkness - Rogue-Like");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/GameView.fxml"))));
-        stage.show();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), StartButton);
+        scaleTransition.setFromX(1);
+        scaleTransition.setFromY(1);
+        scaleTransition.setToX(0.8);
+        scaleTransition.setToY(0.8);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.play();
+        Timeline fadeOut = new Timeline(
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(mediaPlayer.volumeProperty(), 0)));
+        fadeOut.setOnFinished(e -> mediaPlayer.stop());
+        fadeOut.play();
+
+        PauseTransition pauseTransition = new PauseTransition(Duration.millis(1000));
+        pauseTransition.setOnFinished(event -> {
+            try {
+                
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameFXML.fxml"));
+                Parent gameView = loader.load();
+                mediaPlayer.stop();
+
+                Scene scene = new Scene(gameView);
+                Stage currentStage = (Stage) StartButton.getScene().getWindow();
+
+                GameController gameController = loader.getController();
+
+                gameController.setPrimaryStage((Stage) StartButton.getScene().getWindow());
+                currentStage.setScene(scene);
+                gameController.startGame();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        pauseTransition.play();
     }
 
     public static void main(String[] args) {

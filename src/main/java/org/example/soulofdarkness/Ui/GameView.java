@@ -7,6 +7,7 @@ import org.example.soulofdarkness.model.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,12 @@ public class GameView extends Canvas {
     private Player player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100);
     // private int playerX = 1, playerY = 1; // Position du joueur
     private List<Enemy> enemies = new ArrayList<>(); // Liste des ennemis
+    private Canvas canvas;
 
-    public GameView(int width, int height) {
-        super(width * TILE_SIZE, height * TILE_SIZE);
+    public GameView(int width, int height, Canvas canvas) {
+        this.canvas = canvas;
+        this.canvas.setWidth(width * TILE_SIZE);
+        this.canvas.setHeight(height * TILE_SIZE);
         generateNewMaze(width, height);
     }
 
@@ -40,6 +44,7 @@ public class GameView extends Canvas {
 
     public void updatePlayerPosition(int playerX, int playerY) {
         player.movePlayer(playerX, playerY);
+        System.out.println("Position du joueur : (" + player.getX() + ", " + player.getY() + ")");
         // Mettre à jour la position du joueur et des ennemis
         checkEnemyCollision();
         drawMaze();
@@ -69,9 +74,9 @@ public class GameView extends Canvas {
         return enemies;
     }
 
-    private void drawMaze() {
-        GraphicsContext gc = getGraphicsContext2D();
-        gc.clearRect(0, 0, getWidth(), getHeight());
+    public void drawMaze() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         for (int y = 0; y < maze.length; y++) {
             for (int x = 0; x < maze[0].length; x++) {

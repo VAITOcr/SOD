@@ -8,6 +8,7 @@ module org.example.soulofdarkness {
     requires java.desktop;
     requires javafx.media;
     requires javafx.graphics;
+    requires javafx.base;
 
     opens org.example.soulofdarkness to javafx.fxml;
 
