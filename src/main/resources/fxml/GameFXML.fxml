@@ -1,98 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.AppBar?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1198.0" prefWidth="1494.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.soulofdarkness.GameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1198.0" prefWidth="1494.0" style="-fx-background-color: #22272e;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.soulofdarkness.GameController">
    <children>
-      <AppBar fx:id="GameBar" layoutX="-3.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="79.0" prefWidth="1500.0" style="-fx-background-color: #36393d;" titleText="" />
-      <BorderPane layoutY="54.0" prefHeight="1144.0" prefWidth="1494.0">
-         <top>
-            <HBox style="-fx-background-color: #36393d;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="hpImage1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../gif/pixel-heart.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="hpImage2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../gif/pixel-heart.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="hpImage3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../gif/pixel-heart.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="hpImage4" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../gif/pixel-heart.gif" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-         </top>
+      <BorderPane layoutY="54.0" prefHeight="1144.0" prefWidth="1494.0" style="-fx-background-color: #22272e;">
          <left>
-            <VBox prefHeight="994.0" prefWidth="146.0" style="-fx-background-color: #36393d;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="1144.0" prefWidth="1067.0" style="-fx-background-color: #22272e;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <ImageView fitHeight="856.0" fitWidth="1065.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <Canvas fx:id="gameScreen" height="781.0" layoutX="24.0" layoutY="38.0" width="1017.0" />
+                  <ImageView fx:id="GameBarBottom" fitHeight="150.0" fitWidth="758.0" layoutX="148.0" layoutY="970.0" nodeOrientation="INHERIT" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="51.0" fitWidth="965.0" layoutX="44.0" layoutY="882.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/divider.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="174.0" layoutY="987.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../gif/pixel-heart.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="54.0" fitWidth="66.0" layoutX="164.0" layoutY="1021.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../gif/Sword.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="68.0" fitWidth="85.0" layoutX="148.0" layoutY="1062.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Level.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="517.0" layoutY="987.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Armor.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="516.0" layoutY="1039.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Boots.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="hpLabel" layoutX="218.0" layoutY="995.0" prefHeight="18.0" prefWidth="85.0" text="Label" />
+                  <Label fx:id="damageLabel" layoutX="218.0" layoutY="1039.0" prefHeight="18.0" prefWidth="85.0" text="Label" />
+                  <Label fx:id="expLabel" layoutX="218.0" layoutY="1087.0" prefHeight="18.0" prefWidth="85.0" text="Label" />
+                  <Label fx:id="armorLabel" layoutX="571.0" layoutY="998.0" prefHeight="18.0" prefWidth="85.0" text="Label" />
+                  <Label fx:id="speedLabel" layoutX="571.0" layoutY="1048.0" prefHeight="18.0" prefWidth="85.0" text="Label" />
                </children>
-            </VBox>
+            </Pane>
          </left>
-         <bottom>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #36393d;" BorderPane.alignment="CENTER">
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="20.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="RESET" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="24.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="19.0" layoutY="56.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" text="EXIT" />
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
-         </bottom>
          <right>
-            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #36393d;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="1144.0" prefWidth="398.0" style="-fx-background-color: #22272e;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="471.0" fitWidth="315.0" layoutX="42.0" layoutY="171.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </right>
-         <center>
-            <Canvas fx:id="gameScreen" height="1000.0" width="1248.0" BorderPane.alignment="CENTER" />
-         </center>
       </BorderPane>
-      <Text fill="#c92121" layoutX="611.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="𝔖𝔬𝔲𝔩 𝔬𝔣 𝔡𝔞𝔯𝔨𝔫𝔢𝔰𝔰">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Text>
    </children>
 </Pane>
