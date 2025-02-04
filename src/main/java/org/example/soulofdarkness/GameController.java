@@ -55,7 +55,8 @@ public class GameController {
         damageLabel.setText("Damage: " + player.getAttack());
         armorLabel.setText("Armor: " + player.getDefense());
         speedLabel.setText("Speed: " + player.getSpeed());
-        expLabel.setText("Exp: " + player.getExperience() + "/" + player.getMaxExperience());
+        expLabel.setText("Level: " + player.getLevel() + " " + "Exp: " + player.getExperience() + "/"
+                + player.getMaxExperience());
     }
 
     public void startGame(Stage primaryStage) throws Exception {
