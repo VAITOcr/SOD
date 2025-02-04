@@ -75,20 +75,45 @@
                      <font>
                         <Font size="16.0" />
                      </font></Label>
+                  <ImageView fitHeight="94.0" fitWidth="76.0" layoutX="7.0" layoutY="1070.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../gif/TorchGIF.gif" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </left>
          <right>
             <Pane prefHeight="1144.0" prefWidth="398.0" style="-fx-background-color: #22272e;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="471.0" fitWidth="315.0" layoutX="42.0" layoutY="171.0" pickOnBounds="true">
+                  <ImageView fitHeight="207.0" fitWidth="188.0" layoutX="85.0" layoutY="34.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../assets/frame.png" />
+                        <Image url="@../gif/SkullForUI.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="94.0" fitWidth="76.0" layoutX="322.0" layoutY="1068.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../gif/TorchGIF.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="51.0" fitWidth="463.0" layoutX="-32.0" layoutY="339.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/divider.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
          </right>
       </BorderPane>
+      <ImageView fitHeight="94.0" fitWidth="76.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gif/TorchGIF.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="94.0" fitWidth="76.0" layoutX="1431.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gif/TorchGIF.gif" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
