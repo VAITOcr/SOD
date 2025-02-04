@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1198.0" prefWidth="1494.0" style="-fx-background-color: #22272e;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.soulofdarkness.GameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1198.0" prefWidth="1494.0" style="-fx-background-color: #1a1818;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.soulofdarkness.GameController">
    <children>
-      <BorderPane layoutY="54.0" prefHeight="1144.0" prefWidth="1494.0" style="-fx-background-color: #22272e;">
+      <BorderPane layoutY="54.0" prefHeight="1144.0" prefWidth="1494.0" style="-fx-background-color: #1a1818;">
          <left>
-            <Pane prefHeight="1144.0" prefWidth="1067.0" style="-fx-background-color: #22272e;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="1144.0" prefWidth="1067.0" style="-fx-background-color: #1a1818;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="888.0" fitWidth="1040.0" pickOnBounds="true">
                      <image>
@@ -84,9 +84,9 @@
             </Pane>
          </left>
          <right>
-            <Pane prefHeight="1144.0" prefWidth="398.0" style="-fx-background-color: #22272e;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="1144.0" prefWidth="398.0" style="-fx-background-color: #1a1818;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="207.0" fitWidth="188.0" layoutX="85.0" layoutY="34.0" pickOnBounds="true">
+                  <ImageView fitHeight="207.0" fitWidth="188.0" layoutX="77.0" layoutY="37.0" pickOnBounds="true">
                      <image>
                         <Image url="@../gif/SkullForUI.gif" />
                      </image>
@@ -96,11 +96,41 @@
                         <Image url="@../gif/TorchGIF.gif" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="463.0" layoutX="-32.0" layoutY="339.0" pickOnBounds="true">
+                  <ImageView fitHeight="51.0" fitWidth="463.0" layoutX="-60.0" layoutY="341.0" pickOnBounds="true">
                      <image>
                         <Image url="@../assets/divider.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="76.0" layoutX="29.0" layoutY="628.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="76.0" layoutX="133.0" layoutY="743.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="76.0" layoutX="133.0" layoutY="507.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="76.0" layoutX="234.0" layoutY="628.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="76.0" fitWidth="76.0" layoutX="134.0" layoutY="628.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/frame.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="helmetID" fitHeight="61.0" fitWidth="61.0" layoutX="141.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="leftHandID" fitHeight="61.0" fitWidth="61.0" layoutX="37.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="chestID" fitHeight="61.0" fitWidth="61.0" layoutX="142.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="bootsID" fitHeight="61.0" fitWidth="61.0" layoutX="141.0" layoutY="751.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="rightHandID" fitHeight="61.0" fitWidth="61.0" layoutX="242.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
          </right>
