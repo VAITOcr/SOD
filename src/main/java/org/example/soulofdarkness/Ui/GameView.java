@@ -4,6 +4,8 @@ import org.example.soulofdarkness.model.Enemy;
 import org.example.soulofdarkness.model.MazeGenerator;
 import org.example.soulofdarkness.model.Player;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -29,6 +31,15 @@ public class GameView extends Pane {
     private Image wallImage; // Image des murs
     private Image floorImage; // Image des sols
 
+    private Image floorImage2; // Image des sols 2
+    private Image wallImage2; // Image des murs 2
+
+    private Image floorImage3; // Image des sols 3
+    private Image wallImage3; // Image des murs 3
+
+    private Random random = new Random();
+    private int currentTypeMaze;
+
     // Constructeur : initialise la vue du jeu avec le labyrinthe et le joueur
     public GameView(int width, int height) {
         this.setPrefSize(width * TILE_SIZE, height * TILE_SIZE); // Définir la taille de la vue
@@ -36,6 +47,12 @@ public class GameView extends Pane {
         // Chargement des images des murs et sols
         this.wallImage = new Image(getClass().getResource("/assets/Wall1.png").toString());
         this.floorImage = new Image(getClass().getResource("/assets/Floor1.jpg").toString());
+
+        this.wallImage2 = new Image(getClass().getResource("/assets/wall2.png").toString());
+        this.floorImage2 = new Image(getClass().getResource("/assets/floor2.jpg").toString());
+
+        this.wallImage3 = new Image(getClass().getResource("/assets/wall3.png").toString());
+        this.floorImage3 = new Image(getClass().getResource("/assets/floor3.png").toString());
 
         // Initialisation du joueur à la position de départ (1,1)
         this.player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100,
@@ -61,6 +78,7 @@ public class GameView extends Pane {
         mazeGenerator = new MazeGenerator(width, height);
         maze = mazeGenerator.getMaze();
         spawnEnemies(5); // Générer 5 ennemis
+        currentTypeMaze = random.nextInt(3);
         drawMaze(currentCanvas); // Afficher le labyrinthe
     }
 
@@ -118,40 +136,57 @@ public class GameView extends Pane {
         nextCanvas.setTranslateY(OFFSET_Y);
         drawMaze(nextCanvas);
 
-        // Positionner le nouveau labyrinthe en dehors de l'écran (en bas)
-        nextCanvas.setTranslateY(currentCanvas.getHeight());
+        // Au debut de la transition, le labyrinthe actuel est invisible
+        nextCanvas.setOpacity(0);
         this.getChildren().add(nextCanvas);
 
-        // Créer la transition du labyrinthe actuel vers le haut
-        TranslateTransition currentTransition = new TranslateTransition(Duration.seconds(1), currentCanvas);
-        currentTransition.setToY(-currentCanvas.getHeight());
+        // Créer la transition du labyrinthe actuel vers le bas
+        FadeTransition currentTransitionOut = new FadeTransition(Duration.seconds(1), currentCanvas);
+        currentTransitionOut.setToValue(0);
 
-        // Créer la transition du nouveau labyrinthe vers le haut
-        TranslateTransition nextTransition = new TranslateTransition(Duration.seconds(1), nextCanvas);
-        nextTransition.setToY(35);
+        TranslateTransition moveOut = new TranslateTransition(Duration.seconds(1), currentCanvas);
+        moveOut.setToY(-currentCanvas.getHeight());
 
-        // Remplacer le canevas actuel par le nouveau après la transition
-        currentTransition.setOnFinished(e -> {
+        // Créer la transition du labyrinthe suivant vers le haut
+        FadeTransition nextTransitionIn = new FadeTransition(Duration.seconds(0), nextCanvas);
+        nextTransitionIn.setToValue(1);
+
+        TranslateTransition moveIn = new TranslateTransition(Duration.seconds(1), nextCanvas);
+        moveIn.setToY(35);
+
+        // Exécuter les transitions
+        ParallelTransition transitionOut = new ParallelTransition(currentTransitionOut, nextTransitionIn);
+        ParallelTransition transitionIn = new ParallelTransition(moveOut, moveIn);
+        transitionOut.setOnFinished(event -> {
             this.getChildren().remove(currentCanvas);
             currentCanvas = nextCanvas;
+            transitionIn.play();
         });
 
-        currentTransition.play();
-        nextTransition.play();
+        transitionOut.play();
     }
 
     // Dessine le labyrinthe, le joueur et les ennemis sur le canevas spécifié
     private void drawMaze(Canvas canvas) {
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Dessiner les murs et les sols
         for (int y = 0; y < maze.length; y++) {
             for (int x = 0; x < maze[0].length; x++) {
-                if (maze[y][x] == 0) {
+                if (maze[y][x] == 0 && currentTypeMaze == 0) {
                     gc.drawImage(floorImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                } else if (maze[y][x] == 1) {
+                } else if (maze[y][x] == 1 && currentTypeMaze == 0) {
                     gc.drawImage(wallImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                } else if (maze[y][x] == 0 && currentTypeMaze == 1) {
+                    gc.drawImage(floorImage2, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                } else if (maze[y][x] == 1 && currentTypeMaze == 1) {
+                    gc.drawImage(wallImage2, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                } else if (maze[y][x] == 0 && currentTypeMaze == 2) {
+                    gc.drawImage(floorImage3, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                } else if (maze[y][x] == 1 && currentTypeMaze == 2) {
+                    gc.drawImage(wallImage3, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 }
             }
         }
