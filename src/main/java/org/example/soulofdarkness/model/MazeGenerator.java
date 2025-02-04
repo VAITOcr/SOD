@@ -46,7 +46,12 @@ public class MazeGenerator {
 
     private void addEntranceAndExit() {
         maze[0][1] = 1; // Entrée en haut
-        maze[height - 1][width - 2] = 1; // Sortie en bas
+        for (int x = width - 2; x > 0; x--) {
+            if (maze[height - 3][x] == 1) {
+                maze[height - 1][x] = 1; // Sortie en bas
+                break;
+            }
+        }
     }
 
     public void printMaze() {
@@ -63,7 +68,7 @@ public class MazeGenerator {
     }
 
     public static void main(String[] args) {
-        MazeGenerator generator = new MazeGenerator(21, 21);
+        MazeGenerator generator = new MazeGenerator(10, 10);
         generator.printMaze();
     }
 }
