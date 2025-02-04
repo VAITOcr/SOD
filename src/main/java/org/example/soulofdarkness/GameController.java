@@ -21,12 +21,14 @@ public class GameController {
     private Canvas gameScreen;
 
     private Stage primaryStage;
-    private static final int MAZE_WIDTH = 21;
-    private static final int MAZE_HEIGHT = 21;
+    private static final int MAZE_WIDTH = 33;
+    private static final int MAZE_HEIGHT = 27;
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
+    
 
     @FXML
     public void initialize() throws Exception {
@@ -39,7 +41,6 @@ public class GameController {
 
     public void startGame() throws Exception {
         GameView gameView = new GameView(MAZE_WIDTH, MAZE_HEIGHT, gameScreen);
-        gameView.generateNewMaze(MAZE_WIDTH, MAZE_HEIGHT);
 
         InputHandler inputHandler = new InputHandler(gameView);
         gameScreen.setOnKeyPressed(event -> inputHandler.handleKeyPress(event));
