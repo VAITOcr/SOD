@@ -25,7 +25,6 @@ public class GameView extends Canvas {
     // Images for assets
     private Image wallImage = new Image(getClass().getResource("/assets/Wall1.png").toString());
     private Image floorImage = new Image(getClass().getResource("/assets/Floor1.jpg").toString());
-    
 
     // private int playerX = 1, playerY = 1; // Position du joueur
     private List<Enemy> enemies = new ArrayList<>(); // Liste des ennemis
