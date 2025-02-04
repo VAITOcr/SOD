@@ -1,5 +1,8 @@
 package org.example.soulofdarkness.model;
 
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+
 public class Player {
 
     private int x, y;
@@ -11,11 +14,13 @@ public class Player {
     private int defense = 5;
     private int speed = 5;
     private int maxExperience = 100;
+    private Image imagePlayer;
 
-    public Player() {}
+    public Player() {
+    }
 
     public Player(int x, int y, int health, int maxHealth, int experience, int level, int attack, int defense,
-            int speed, int maxExperience) {
+            int speed, int maxExperience, Image imagePlayer) {
         this.x = x;
         this.y = y;
         this.health = health;
@@ -26,6 +31,7 @@ public class Player {
         this.defense = defense;
         this.speed = speed;
         this.maxExperience = maxExperience;
+        this.imagePlayer = imagePlayer;
     }
 
     public int getX() {
@@ -141,6 +147,14 @@ public class Player {
     public void movePlayer(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Image getImagePlayer() {
+        return imagePlayer;
+    }
+
+    public void setImagePlayer(Image imagePlayer) {
+        this.imagePlayer = imagePlayer;
     }
 
 }

@@ -2,12 +2,33 @@ package org.example.soulofdarkness.model;
 
 import java.util.Random;
 
+import javafx.scene.image.Image;
+
 public class Enemy {
     private int x, y;
     private static final Random random = new Random();
+    private Image enemyImage = new Image(getClass().getResource("/assets/enemy1.png").toString());
+    private Image enemyImage2 = new Image(getClass().getResource("/assets/enemy2.png").toString());
+    private Image enemyImage3 = new Image(getClass().getResource("/assets/wizard.png").toString());
 
     public Enemy(int[][] maze) {
         spawnEnemy(maze);
+        assignRandomImage();
+    }
+
+    private void assignRandomImage() {
+        Random random = new Random();
+        switch (random.nextInt(3)) {
+            case 0:
+                this.enemyImage = enemyImage;
+                break;
+            case 1:
+                this.enemyImage = enemyImage2;
+                break;
+            case 2:
+                this.enemyImage = enemyImage3;
+                break;
+        }
     }
 
     private void spawnEnemy(int[][] maze) {
@@ -32,6 +53,10 @@ public class Enemy {
             x = newX;
             y = newY;
         }
+    }
+
+    public Image getEnemyImage() {
+        return enemyImage;
     }
 
     public boolean checkCollision(int playerX, int playerY) {
