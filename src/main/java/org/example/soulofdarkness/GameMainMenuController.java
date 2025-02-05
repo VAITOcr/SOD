@@ -59,6 +59,7 @@ public class GameMainMenuController extends Application {
         this.mediaPlayer.setVolume(0.1);
 
         Scene scene = new Scene(root);
+        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.setTitle("Souls of Darkness - Rogue-Like");
         primaryStage.setScene(scene);
         primaryStage.show();
