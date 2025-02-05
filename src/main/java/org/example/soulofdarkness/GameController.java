@@ -29,8 +29,8 @@ public class GameController {
 
     private Player player; // Instance du joueur
     private Stage primaryStage; // Fenêtre principale du jeu
-    private static final int MAZE_WIDTH = 33; // Largeur du labyrinthe
-    private static final int MAZE_HEIGHT = 27; // Hauteur du labyrinthe
+    private static final int MAZE_WIDTH = 24; // Largeur du labyrinthe
+    private static final int MAZE_HEIGHT = 19; // Hauteur du labyrinthe
     private GameView gameView; // Vue principale du jeu qui gère le labyrinthe et les personnages
 
     // Méthode pour définir la fenêtre principale depuis l'extérieur

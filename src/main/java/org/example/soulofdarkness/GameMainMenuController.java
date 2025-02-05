@@ -102,7 +102,7 @@ public class GameMainMenuController extends Application {
         PauseTransition pauseTransition = new PauseTransition(Duration.millis(1000));
         pauseTransition.setOnFinished(event -> {
             try {
-                
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameFXML.fxml"));
                 Parent gameView = loader.load();
                 mediaPlayer.stop();

@@ -19,8 +19,8 @@ import java.util.Random;
 
 public class GameView extends Pane {
     private static final int TILE_SIZE = 30;
-    private static final int OFFSET_X = 22;// Taille d'une case du labyrinthe
-    private static final int OFFSET_Y = 35;
+    private static final int OFFSET_X = 42;// Taille d'une case du labyrinthe
+    private static final int OFFSET_Y = 75;
     private MazeGenerator mazeGenerator; // Générateur de labyrinthe
     private int[][] maze; // Représentation matricielle du labyrinthe
     private Player player; // Instance du joueur
@@ -127,8 +127,8 @@ public class GameView extends Pane {
 
     // Transition animée vers un nouveau labyrinthe
     public void transitionToNewMaze() {
-        int OFFSET_X = 22;
-        int OFFSET_Y = 10;
+        int OFFSET_X = 42;
+        int OFFSET_Y = 75;
         nextCanvas = new Canvas(currentCanvas.getWidth(), currentCanvas.getHeight());
         generateNewMaze(maze[0].length, maze.length);
         player.movePlayer(1, 1); // Réinitialiser la position du joueur à (1,1)
@@ -141,26 +141,26 @@ public class GameView extends Pane {
         this.getChildren().add(nextCanvas);
 
         // Créer la transition du labyrinthe actuel vers le bas
-        FadeTransition currentTransitionOut = new FadeTransition(Duration.seconds(1), currentCanvas);
+        FadeTransition currentTransitionOut = new FadeTransition(Duration.seconds(2), currentCanvas);
         currentTransitionOut.setToValue(0);
 
         TranslateTransition moveOut = new TranslateTransition(Duration.seconds(1), currentCanvas);
-        moveOut.setToY(-currentCanvas.getHeight());
+        moveOut.setToY(-nextCanvas.getHeight());
 
         // Créer la transition du labyrinthe suivant vers le haut
-        FadeTransition nextTransitionIn = new FadeTransition(Duration.seconds(0), nextCanvas);
+        FadeTransition nextTransitionIn = new FadeTransition(Duration.seconds(2), nextCanvas);
         nextTransitionIn.setToValue(1);
 
         TranslateTransition moveIn = new TranslateTransition(Duration.seconds(1), nextCanvas);
-        moveIn.setToY(35);
+        moveIn.setToY(75);
 
         // Exécuter les transitions
         ParallelTransition transitionOut = new ParallelTransition(currentTransitionOut, nextTransitionIn);
-        ParallelTransition transitionIn = new ParallelTransition(moveOut, moveIn);
+        
         transitionOut.setOnFinished(event -> {
             this.getChildren().remove(currentCanvas);
             currentCanvas = nextCanvas;
-            transitionIn.play();
+           
         });
 
         transitionOut.play();

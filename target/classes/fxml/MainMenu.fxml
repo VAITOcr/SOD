@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="MainMenuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1043.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="MainMenuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="GifMainMenu" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1043.0" prefWidth="1279.0" />
-      <Button fx:id="ExitButton" layoutX="516.0" layoutY="825.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝙴𝚇𝙸𝚃" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
-      <Button fx:id="StartButton" layoutX="516.0" layoutY="714.0" mnemonicParsing="false" onAction="#startGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝚂𝚃𝙰𝚁𝚃" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="198.0" fitWidth="795.0" layoutX="242.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+      <Pane fx:id="GifMainMenu" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="696.0" prefWidth="955.0" />
+      <ImageView fitHeight="198.0" fitWidth="795.0" layoutX="87.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/LogoMainMenu.png" />
          </image>
       </ImageView>
+      <Button fx:id="StartButton" layoutX="361.0" layoutY="439.0" mnemonicParsing="false" onAction="#startGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝚂𝚃𝙰𝚁𝚃" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="ExitButton" layoutX="361.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="56.0" prefWidth="247.0" style="-fx-background-color: BLACK;" text="𝙴𝚇𝙸𝚃" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
