@@ -1,5 +1,6 @@
 package org.example.soulofdarkness.Ui;
 
+import org.example.soulofdarkness.GameController;
 import org.example.soulofdarkness.model.Chest;
 import org.example.soulofdarkness.model.Enemy;
 import org.example.soulofdarkness.model.Inventory;
@@ -45,6 +46,8 @@ public class GameView extends Pane {
     private Random random = new Random();
     private int currentTypeMaze;
 
+    private GameController gameController;
+
     // Constructeur : initialise la vue du jeu avec le labyrinthe et le joueur
     public GameView(int width, int height) {
         this.setPrefSize(width * TILE_SIZE, height * TILE_SIZE); // Définir la taille de la vue
@@ -71,6 +74,10 @@ public class GameView extends Pane {
 
         // Génération du labyrinthe initial
         generateNewMaze(width, height);
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     // Getter pour accéder à l'objet Player
@@ -155,7 +162,8 @@ public class GameView extends Pane {
                     // pick up the item
                     Item foundItem = chest.getRandomItem();
                     player.pickUpItems(foundItem);
-                    System.out.println("You found: " + foundItem.getName() + "!");
+                    gameController.updateGameNotification("Vous avez trouvé un " + foundItem.getName());
+                    gameController.pickUpItemFromChest(chest);
 
                     // open the chest
                     chest.openChest();

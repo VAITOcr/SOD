@@ -177,4 +177,10 @@ public class Player {
 
     }
 
+    public void equipeBetterWeapon(Weapon weapon) {
+        if (weapon.getDamage() > this.getInventory().getWeapon().getDamage()) {
+            this.getInventory().setWeapon(weapon);
+        }
+    }
+
 }

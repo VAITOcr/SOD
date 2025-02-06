@@ -6,7 +6,9 @@ import org.example.soulofdarkness.Ui.GameView;
 import org.example.soulofdarkness.Utils.Input.InputHandler;
 import org.example.soulofdarkness.model.Chest;
 import org.example.soulofdarkness.model.Inventory;
+import org.example.soulofdarkness.model.Item;
 import org.example.soulofdarkness.model.Player;
+import org.example.soulofdarkness.model.Potion;
 import org.example.soulofdarkness.model.Weapon;
 
 import javafx.fxml.FXML;
@@ -42,6 +44,8 @@ public class GameController {
     private ImageView chestID;
     @FXML
     private ImageView bootsID;
+    @FXML
+    private Label gameNotificationID;
 
     private Player player; // Instance du joueur
     private Inventory inventory = new Inventory();
@@ -73,11 +77,10 @@ public class GameController {
         updateUI(); // Mise à jour de l'interface utilisateur avec les informations du joueur
     }
 
-    public void pickUpItemFromChest(Chest chest) {
-        if (chest != null) {
-            chest.pickUpItems(player);
-            updateUI();
-        }
+    public void updateGameNotification(String message) {
+        gameNotificationID.setVisible(true);
+        gameNotificationID.setTextFill(javafx.scene.paint.Color.WHITE);
+        gameNotificationID.setText(message);
     }
 
     // Met à jour les labels de l'interface avec les statistiques du joueur
@@ -104,6 +107,21 @@ public class GameController {
         }
     }
 
+    public void pickUpItemFromChest(Chest chest) {
+        if (chest != null) {
+            Item item = chest.getRandomItem();
+            if (item instanceof Weapon) {
+                Weapon weapon = (Weapon) item;
+                player.equipeBetterWeapon(weapon);
+
+            } else {
+                chest.pickUpItems(player);
+                System.out.println("Item picked up: " + item.getName());
+            }
+            updateUI();
+        }
+    }
+
     // Lance le jeu avec une fenêtre spécifiée
     public void startGame(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -115,6 +133,7 @@ public class GameController {
 
         // Crée une nouvelle instance de GameView avec les dimensions du labyrinthe
         gameView = new GameView(MAZE_WIDTH, MAZE_HEIGHT);
+        gameView.setGameController(this);
 
         // Remplace le canvas initial par la GameView dans l'interface utilisateur
         Pane rootPane = (Pane) gameScreen.getParent();
