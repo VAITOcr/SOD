@@ -1,6 +1,8 @@
 package org.example.soulofdarkness.Ui;
 
+import org.example.soulofdarkness.model.Chest;
 import org.example.soulofdarkness.model.Enemy;
+import org.example.soulofdarkness.model.Item;
 import org.example.soulofdarkness.model.MazeGenerator;
 import org.example.soulofdarkness.model.Player;
 
@@ -25,6 +27,7 @@ public class GameView extends Pane {
     private int[][] maze; // Représentation matricielle du labyrinthe
     private Player player; // Instance du joueur
     private List<Enemy> enemies; // Liste des ennemis présents dans le labyrinthe
+    private List<Chest> chests; // Liste des coffres presents dans le labyrinthe
     private Canvas currentCanvas; // Canevas actuel pour le rendu
     private Canvas nextCanvas; // Canevas pour les transitions de labyrinthe
 
@@ -78,6 +81,7 @@ public class GameView extends Pane {
         mazeGenerator = new MazeGenerator(width, height);
         maze = mazeGenerator.getMaze();
         spawnEnemies(5); // Générer 5 ennemis
+        spawnChests(2); // Générer 2 coffres par labyrinthe
         currentTypeMaze = random.nextInt(3);
         drawMaze(currentCanvas); // Afficher le labyrinthe
     }
@@ -90,10 +94,19 @@ public class GameView extends Pane {
         }
     }
 
+    // Genere des coffres dans le labyrinthe
+    private void spawnChests(int count) {
+        chests = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            chests.add(new Chest(maze));
+        }
+    }
+
     // Met à jour la position du joueur et vérifie les collisions
     public void updatePlayerPosition(int playerX, int playerY) {
         player.movePlayer(playerX, playerY);
         checkEnemyCollision();
+        checkChestCollision();
         moveEnemies();
 
         // Vérifie si le joueur a atteint la sortie pour générer un nouveau labyrinthe
@@ -121,6 +134,28 @@ public class GameView extends Pane {
         for (Enemy enemy : enemies) {
             if (enemy.checkCollision(player.getX(), player.getY())) {
                 System.out.println("\uD83D\uDC80 Combat engagé avec un ennemi !");
+            }
+        }
+    }
+
+    private void checkChestCollision() {
+        GraphicsContext gc = currentCanvas.getGraphicsContext2D();
+
+        for (Chest chest : chests) {
+            if (chest.checkCollision(player.getX(), player.getY())) {
+
+                if (!chest.isOpen()) {
+                    // pick up the item
+                    Item foundItem = chest.getRandomItem();
+                    player.pickUpItems(foundItem);
+                    System.out.println("You found: " + foundItem.getName() + "!");
+
+                    // open the chest
+                    chest.openChest();
+                }
+
+                gc.drawImage(chest.getChestImage(), chest.getX() * TILE_SIZE, chest.getY() * TILE_SIZE);
+
             }
         }
     }
@@ -156,11 +191,11 @@ public class GameView extends Pane {
 
         // Exécuter les transitions
         ParallelTransition transitionOut = new ParallelTransition(currentTransitionOut, nextTransitionIn);
-        
+
         transitionOut.setOnFinished(event -> {
             this.getChildren().remove(currentCanvas);
             currentCanvas = nextCanvas;
-           
+
         });
 
         transitionOut.play();
@@ -200,6 +235,14 @@ public class GameView extends Pane {
             gc.drawImage(enemy.getEnemyImage(), enemy.getX() * TILE_SIZE, enemy.getY() * TILE_SIZE, TILE_SIZE,
                     TILE_SIZE);
         }
+
+        // Dessiner les coffres
+        for (Chest chest : chests) {
+            gc.drawImage(chest.getChestImage(), chest.getX() * TILE_SIZE, chest.getY() * TILE_SIZE, TILE_SIZE,
+                    TILE_SIZE);
+
+        }
+
     }
 
     // Getter pour récupérer la matrice du labyrinthe

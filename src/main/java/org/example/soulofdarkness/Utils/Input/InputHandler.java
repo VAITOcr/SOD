@@ -5,7 +5,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class InputHandler {
-    // Référence à l'instance de GameView pour gérer les mises à jour du joueur et du labyrinthe
+    // Référence à l'instance de GameView pour gérer les mises à jour du joueur et
+    // du labyrinthe
     private final GameView gameView;
 
     // Constructeur qui initialise l'InputHandler avec l'instance de GameView
@@ -38,6 +39,11 @@ public class InputHandler {
     // Vérifie si le joueur peut se déplacer à la position (x, y)
     private boolean canMove(int x, int y) {
         int[][] maze = gameView.getMaze(); // Récupère le labyrinthe actuel
-        return maze[y][x] == 1; // Le joueur peut se déplacer seulement sur les cases avec des chemins (valeur 1)
+
+        if (y < 0 || y >= maze.length || x < 0 || x >= maze[0].length) {
+            return false; // Le joueur ne peut pas sortir du labyrinthe
+        }
+        return maze[y][x] == 1;// Le joueur peut se déplacer seulement sur les cases avec des chemins (valeur
+                               // 1)
     }
 }

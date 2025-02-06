@@ -19,13 +19,13 @@
             <Image url="@../assets/frame.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="207.0" fitWidth="188.0" layoutX="910.0" layoutY="53.0" pickOnBounds="true">
+      <ImageView fitHeight="124.0" fitWidth="142.0" layoutX="926.0" layoutY="53.0" pickOnBounds="true">
          <image>
             <Image url="@../gif/SkullForUI.gif" />
          </image>
       </ImageView>
       <Canvas fx:id="gameScreen" height="568.0" layoutX="44.0" layoutY="78.0" width="723.0" />
-      <ImageView fitHeight="52.0" fitWidth="335.0" layoutX="837.0" layoutY="296.0" pickOnBounds="true">
+      <ImageView fitHeight="52.0" fitWidth="335.0" layoutX="830.0" layoutY="338.0" pickOnBounds="true">
          <image>
             <Image url="@../assets/divider.png" />
          </image>
@@ -130,5 +130,11 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <ImageView fitHeight="83.0" fitWidth="304.0" layoutX="844.0" layoutY="201.0" pickOnBounds="true">
+         <image>
+            <Image url="@../assets/frame.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="GameNotificationID" layoutX="866.0" layoutY="211.0" prefHeight="61.0" prefWidth="257.0" style="-fx-background-color: BLACK;" text="Label" />
    </children>
 </Pane>

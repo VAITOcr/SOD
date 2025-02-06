@@ -1,11 +1,6 @@
 package org.example.soulofdarkness.model;
 
-
 import javafx.scene.image.Image;
-
-
-
-
 
 public class Player {
 
@@ -159,6 +154,17 @@ public class Player {
 
     public void setImagePlayer(Image imagePlayer) {
         this.imagePlayer = imagePlayer;
+    }
+
+    public void pickUpItems(Item item) {
+        if (item instanceof Potion) {
+            Potion potion = (Potion) item;
+            health += potion.getHealingAmount();
+            if (health > maxHealth) {
+                health = maxHealth;
+            }
+        }
+
     }
 
 }
