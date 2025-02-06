@@ -51,7 +51,7 @@ public class GameController {
     private Inventory inventory = new Inventory();
     private List<Chest> chests;
     private Stage primaryStage; // Fenêtre principale du jeu
-    private static final int MAZE_WIDTH = 24; // Largeur du labyrinthe
+    private static final int MAZE_WIDTH = 23; // Largeur du labyrinthe
     private static final int MAZE_HEIGHT = 19; // Hauteur du labyrinthe
     private GameView gameView; // Vue principale du jeu qui gère le labyrinthe et les personnages
 
@@ -113,7 +113,15 @@ public class GameController {
             if (item instanceof Weapon) {
                 Weapon weapon = (Weapon) item;
                 player.equipeBetterWeapon(weapon);
-
+            } else if (item instanceof Potion) {
+                Potion potion = (Potion) item;
+                int heal = potion.getHealingAmount();
+                player.setHealth(player.getHealth() + heal);
+                if (player.getHealth() > player.getMaxHealth()) {
+                    player.setHealth(player.getMaxHealth());
+                } else {
+                    gameNotificationID.setText("Health of the player at max");
+                }
             } else {
                 chest.pickUpItems(player);
                 System.out.println("Item picked up: " + item.getName());

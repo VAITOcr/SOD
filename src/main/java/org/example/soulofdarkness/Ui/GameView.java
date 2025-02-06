@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class GameView extends Pane {
     private static final int TILE_SIZE = 30;
-    private static final int OFFSET_X = 42;// Taille d'une case du labyrinthe
+    private static final int OFFSET_X = 60;
     private static final int OFFSET_Y = 75;
     private MazeGenerator mazeGenerator; // Générateur de labyrinthe
     private int[][] maze; // Représentation matricielle du labyrinthe
@@ -177,7 +177,7 @@ public class GameView extends Pane {
 
     // Transition animée vers un nouveau labyrinthe
     public void transitionToNewMaze() {
-        int OFFSET_X = 42;
+        int OFFSET_X = 60;
         int OFFSET_Y = 75;
         nextCanvas = new Canvas(currentCanvas.getWidth(), currentCanvas.getHeight());
         generateNewMaze(maze[0].length, maze.length);
