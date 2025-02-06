@@ -104,16 +104,21 @@ public class GameView extends Pane {
 
     // Met à jour la position du joueur et vérifie les collisions
     public void updatePlayerPosition(int playerX, int playerY) {
-        player.movePlayer(playerX, playerY);
-        checkEnemyCollision();
-        checkChestCollision();
-        moveEnemies();
+        try {
+            Thread.sleep(100);
+            player.movePlayer(playerX, playerY);
+            checkEnemyCollision();
+            checkChestCollision();
+            moveEnemies();
 
-        // Vérifie si le joueur a atteint la sortie pour générer un nouveau labyrinthe
-        if (isExitReached(playerX, playerY)) {
-            transitionToNewMaze();
-        } else {
-            drawMaze(currentCanvas);
+            // Vérifie si le joueur a atteint la sortie pour générer un nouveau labyrinthe
+            if (isExitReached(playerX, playerY)) {
+                transitionToNewMaze();
+            } else {
+                drawMaze(currentCanvas);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
