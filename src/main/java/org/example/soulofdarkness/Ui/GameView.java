@@ -2,6 +2,7 @@ package org.example.soulofdarkness.Ui;
 
 import org.example.soulofdarkness.model.Chest;
 import org.example.soulofdarkness.model.Enemy;
+import org.example.soulofdarkness.model.Inventory;
 import org.example.soulofdarkness.model.Item;
 import org.example.soulofdarkness.model.MazeGenerator;
 import org.example.soulofdarkness.model.Player;
@@ -26,6 +27,7 @@ public class GameView extends Pane {
     private MazeGenerator mazeGenerator; // Générateur de labyrinthe
     private int[][] maze; // Représentation matricielle du labyrinthe
     private Player player; // Instance du joueur
+    private Inventory inventory; // Inventaire du joueur
     private List<Enemy> enemies; // Liste des ennemis présents dans le labyrinthe
     private List<Chest> chests; // Liste des coffres presents dans le labyrinthe
     private Canvas currentCanvas; // Canevas actuel pour le rendu
@@ -58,7 +60,7 @@ public class GameView extends Pane {
         this.floorImage3 = new Image(getClass().getResource("/assets/floor3.png").toString());
 
         // Initialisation du joueur à la position de départ (1,1)
-        this.player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100,
+        this.player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
                 new Image(getClass().getResource("/assets/Player.png").toString()));
 
         // Création du canevas pour le rendu du labyrinthe

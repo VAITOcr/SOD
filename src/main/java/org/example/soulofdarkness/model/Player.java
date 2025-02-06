@@ -14,12 +14,13 @@ public class Player {
     private int speed = 5;
     private int maxExperience = 100;
     private Image imagePlayer;
+    private Inventory inventory = new Inventory();
 
     public Player() {
     }
 
     public Player(int x, int y, int health, int maxHealth, int experience, int level, int attack, int defense,
-            int speed, int maxExperience, Image imagePlayer) {
+            int speed, int maxExperience, Inventory inventory, Image imagePlayer) {
         this.x = x;
         this.y = y;
         this.health = health;
@@ -30,6 +31,7 @@ public class Player {
         this.defense = defense;
         this.speed = speed;
         this.maxExperience = maxExperience;
+        this.inventory = inventory;
         this.imagePlayer = imagePlayer;
     }
 
@@ -146,6 +148,14 @@ public class Player {
     public void movePlayer(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public Image getImagePlayer() {

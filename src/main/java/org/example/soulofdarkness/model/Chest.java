@@ -35,11 +35,16 @@ public class Chest {
     private void initializeItems() {
         // Create a list of items
         items = new ArrayList<>(Arrays.asList(
-                new Potion("Health Potion", "A potion that restores 10 health.", "Potion", 10),
-                new Potion("Health Potion", "A potion that restores 5 health.", "Potion", 5),
-                new Weapon("Sword", 10, "sword"),
-                new Weapon("Dagger", 5, "dagger"),
-                new Weapon("Axe", 15, "axe"),
+                new Potion("Health Potion", "A potion that restores 10 health.", "Potion", 10,
+                        new Image(getClass().getResource("/assets/Potion.png").toString())),
+                new Potion("Health Potion", "A potion that restores 5 health.", "Potion", 5,
+                        new Image(getClass().getResource("/assets/Potion.png").toString())),
+                new Weapon("Sword", 10, "sword", "A sword that deals 10 damage.",
+                        new Image(getClass().getResource("/assets/Sword.png").toString())),
+                new Weapon("Dagger", 5, "dagger", "A dagger that deals 5 damage.",
+                        new Image(getClass().getResource("/assets/Dagger.png").toString())),
+                new Weapon("Axe", 15, "axe", "An axe that deals 15 damage.",
+                        new Image(getClass().getResource("/assets/Axe.png").toString())),
                 new Gold("Gold", 10, "Gold", "Coins that can be used to buy items and upgrade your character."),
                 new Gold("Gold", 5, "Gold", "Coins that can be used to buy items and upgrade your character.")));
     }
@@ -81,6 +86,14 @@ public class Chest {
             System.err.println("Error loading image: " + path);
             return null;
         }
+    }
+
+    public void pickUpItems(Player player) {
+        if (!isOpen) {
+            openChest();
+        }
+        Item item = getRandomItem();
+        player.getInventory().equipItem(item);
     }
 
     public boolean checkCollision(int playerX, int playerY) {

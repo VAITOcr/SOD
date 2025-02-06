@@ -1,13 +1,19 @@
 package org.example.soulofdarkness;
 
+import java.util.List;
+
 import org.example.soulofdarkness.Ui.GameView;
 import org.example.soulofdarkness.Utils.Input.InputHandler;
+import org.example.soulofdarkness.model.Chest;
+import org.example.soulofdarkness.model.Inventory;
 import org.example.soulofdarkness.model.Player;
+import org.example.soulofdarkness.model.Weapon;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -26,8 +32,20 @@ public class GameController {
     private Label speedLabel; // Label pour afficher la vitesse
     @FXML
     private Label expLabel; // Label pour afficher l'expérience et le niveau
+    @FXML
+    private ImageView helmetID;
+    @FXML
+    private ImageView rightHandID;
+    @FXML
+    private ImageView leftHandID;
+    @FXML
+    private ImageView chestID;
+    @FXML
+    private ImageView bootsID;
 
     private Player player; // Instance du joueur
+    private Inventory inventory = new Inventory();
+    private List<Chest> chests;
     private Stage primaryStage; // Fenêtre principale du jeu
     private static final int MAZE_WIDTH = 24; // Largeur du labyrinthe
     private static final int MAZE_HEIGHT = 19; // Hauteur du labyrinthe
@@ -43,11 +61,23 @@ public class GameController {
     public void initialize() throws Exception {
         System.out.println("GameController initialized");
 
+        // Creaation de la premiere weapon
+        Weapon basicSword = new Weapon("Basic Sword", 5, "Sword", "A basic sword",
+                new javafx.scene.image.Image(getClass().getResource("/assets/Sword.png").toString()));
+
         // Initialisation du joueur avec ses attributs de départ
-        player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100,
+        player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
                 new javafx.scene.image.Image(getClass().getResource("/assets/Player.png").toString()));
+        player.getInventory().setWeapon(basicSword);
 
         updateUI(); // Mise à jour de l'interface utilisateur avec les informations du joueur
+    }
+
+    public void pickUpItemFromChest(Chest chest) {
+        if (chest != null) {
+            chest.pickUpItems(player);
+            updateUI();
+        }
     }
 
     // Met à jour les labels de l'interface avec les statistiques du joueur
@@ -56,7 +86,22 @@ public class GameController {
         damageLabel.setText("Damage: " + player.getAttack());
         armorLabel.setText("Armor: " + player.getDefense());
         speedLabel.setText("Speed: " + player.getSpeed());
-        expLabel.setText("Level: " + player.getLevel() + " Exp: " + player.getExperience() + "/" + player.getMaxExperience());
+        expLabel.setText(
+                "Level: " + player.getLevel() + " Exp: " + player.getExperience() + "/" + player.getMaxExperience());
+
+        Weapon rightHand = player.getInventory().getRightHand().getWeapon();
+        if (rightHand != null) {
+            rightHandID.setImage(rightHand.getImage());
+        } else {
+            rightHandID.setImage(null);
+        }
+
+        Weapon leftHand = player.getInventory().getLeftHand().getWeapon();
+        if (leftHand != null) {
+            leftHandID.setImage(leftHand.getImage());
+        } else {
+            leftHandID.setImage(null);
+        }
     }
 
     // Lance le jeu avec une fenêtre spécifiée
