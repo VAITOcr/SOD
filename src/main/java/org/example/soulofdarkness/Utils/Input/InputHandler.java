@@ -24,9 +24,9 @@ public class InputHandler {
 
         // Met à jour les coordonnées en fonction de la touche pressée
         switch (key) {
-            case UP, Z -> newY--;
+            case UP, W -> newY--;
             case DOWN, S -> newY++;
-            case LEFT, Q -> newX--;
+            case LEFT, A -> newX--;
             case RIGHT, D -> newX++;
         }
 

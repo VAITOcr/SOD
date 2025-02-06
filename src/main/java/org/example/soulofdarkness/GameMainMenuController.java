@@ -56,7 +56,7 @@ public class GameMainMenuController extends Application {
         this.mediaPlayer = new MediaPlayer(media);
         this.mediaPlayer.play();
         this.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        this.mediaPlayer.setVolume(0.1);
+        this.mediaPlayer.setVolume(0.03);
 
         Scene scene = new Scene(root);
         primaryStage.initStyle(StageStyle.UTILITY);
@@ -85,7 +85,7 @@ public class GameMainMenuController extends Application {
 
     @FXML
     private void startGame() throws Exception {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), StartButton);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), StartButton);
         scaleTransition.setFromX(1);
         scaleTransition.setFromY(1);
         scaleTransition.setToX(0.8);
@@ -99,7 +99,7 @@ public class GameMainMenuController extends Application {
         fadeOut.setOnFinished(e -> mediaPlayer.stop());
         fadeOut.play();
 
-        PauseTransition pauseTransition = new PauseTransition(Duration.millis(1000));
+        PauseTransition pauseTransition = new PauseTransition(Duration.millis(1200));
         pauseTransition.setOnFinished(event -> {
             try {
 

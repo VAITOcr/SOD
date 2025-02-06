@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.example.soulofdarkness.Ui.GameView;
 import org.example.soulofdarkness.Utils.Input.InputHandler;
+import org.example.soulofdarkness.model.Armor;
 import org.example.soulofdarkness.model.Chest;
+import org.example.soulofdarkness.model.Helmet;
 import org.example.soulofdarkness.model.Inventory;
 import org.example.soulofdarkness.model.Item;
 import org.example.soulofdarkness.model.Player;
@@ -69,10 +71,18 @@ public class GameController {
         Weapon basicSword = new Weapon("Basic Sword", 5, "Sword", "A basic sword",
                 new javafx.scene.image.Image(getClass().getResource("/assets/Sword.png").toString()));
 
+        // Creation des premiers armors
+        Helmet basicHelmet = new Helmet("Basic Helmet", 5,
+                new javafx.scene.image.Image(getClass().getResource("/assets/Helmet.png").toString()));
+        Armor basicArmor = new Armor("Basic Armor", 5,
+                new javafx.scene.image.Image(getClass().getResource("/assets/Armor.png").toString()));
+
         // Initialisation du joueur avec ses attributs de départ
         player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
                 new javafx.scene.image.Image(getClass().getResource("/assets/Player.png").toString()));
         player.getInventory().setWeapon(basicSword);
+        player.getInventory().setHelmet(basicHelmet);
+        player.getInventory().setArmor(basicArmor);
 
         updateUI(); // Mise à jour de l'interface utilisateur avec les informations du joueur
     }
@@ -105,6 +115,20 @@ public class GameController {
         } else {
             leftHandID.setImage(null);
         }
+
+        Helmet helmet = player.getInventory().getHelmet();
+        if (helmet != null) {
+            helmetID.setImage(helmet.getImage());
+        } else {
+            helmetID.setImage(null);
+        }
+
+        Armor armor = player.getInventory().getArmor();
+        if (armor != null) {
+            chestID.setImage(armor.getImage());
+        } else {
+            chestID.setImage(null);
+        }
     }
 
     public void pickUpItemFromChest(Chest chest) {
@@ -119,6 +143,7 @@ public class GameController {
                 player.setHealth(player.getHealth() + heal);
                 if (player.getHealth() > player.getMaxHealth()) {
                     player.setHealth(player.getMaxHealth());
+
                 } else {
                     gameNotificationID.setText("Health of the player at max");
                 }

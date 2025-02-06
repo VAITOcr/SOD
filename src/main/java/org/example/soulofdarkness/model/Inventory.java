@@ -8,6 +8,8 @@ public class Inventory {
     private Gold gold;
     private Potion potion;
     private Weapon weapon;
+    private Helmet helmet;
+    private Armor armor;
 
     public Inventory() {
         this.gold = new Gold();
@@ -33,6 +35,14 @@ public class Inventory {
         return weapon;
     }
 
+    public Helmet getHelmet() {
+        return helmet;
+    }
+
+    public Armor getArmor() {
+        return armor;
+    }
+
     public void setGold(Gold gold) {
         this.gold = gold;
     }
@@ -43,6 +53,14 @@ public class Inventory {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public void setHelmet(Helmet helmet) {
+        this.helmet = helmet;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
     }
 
     public void equipItem(Item item) {

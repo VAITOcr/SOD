@@ -67,4 +67,8 @@ public class Weapon implements Item {
             System.out.println("You swing your staff and deal " + damage + " damage.");
         }
     }
+
+    public int getAttack() {
+        return damage;
+    }
 }

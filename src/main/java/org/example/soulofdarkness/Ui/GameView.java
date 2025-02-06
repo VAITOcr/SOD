@@ -15,6 +15,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -71,6 +73,14 @@ public class GameView extends Pane {
         this.currentCanvas.setTranslateX(OFFSET_X);
         this.currentCanvas.setTranslateY(OFFSET_Y);
         this.getChildren().add(currentCanvas);
+
+        // MediaPlayer pour la musique de fond
+        String ostPath = getClass().getResource("/sound/GameOST.mp3").toString();
+        Media media = new Media(ostPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.1);
 
         // Génération du labyrinthe initial
         generateNewMaze(width, height);
@@ -162,7 +172,8 @@ public class GameView extends Pane {
                     // pick up the item
                     Item foundItem = chest.getRandomItem();
                     player.pickUpItems(foundItem);
-                    gameController.updateGameNotification("Vous avez trouvé un " + foundItem.getName());
+                    gameController.updateGameNotification("Vous avez trouvé: " + foundItem.getName() + " !");
+                    ;
                     gameController.pickUpItemFromChest(chest);
 
                     // open the chest

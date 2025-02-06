@@ -60,10 +60,22 @@ public class Player {
     }
 
     public int getAttack() {
+        if (inventory.getLeftHand().getWeapon() != null) {
+            attack += inventory.getLeftHand().getWeapon().getAttack();
+        }
+        if (inventory.getRightHand().getWeapon() != null) {
+            attack += inventory.getRightHand().getWeapon().getAttack();
+        }
         return attack;
     }
 
     public int getDefense() {
+        if (inventory.getHelmet() != null) {
+            defense += inventory.getHelmet().getDefense();
+        }
+        if (inventory.getArmor() != null) {
+            defense += inventory.getArmor().getDefense();
+        }
         return defense;
     }
 
