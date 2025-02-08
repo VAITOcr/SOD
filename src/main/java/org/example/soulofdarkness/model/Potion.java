@@ -3,6 +3,8 @@ package org.example.soulofdarkness.model;
 import javafx.scene.image.Image;
 
 public class Potion implements Item {
+    private static int potionCount = 0;
+    private final int id;
 
     private String name;
     private String description;
@@ -11,11 +13,16 @@ public class Potion implements Item {
     private Image image;
 
     public Potion(String name, String description, String type, int healingAmount, Image image) {
+        this.id = potionCount++;
         this.name = name;
         this.description = description;
         this.type = type;
         this.healingAmount = healingAmount;
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

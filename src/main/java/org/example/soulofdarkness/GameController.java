@@ -1,11 +1,14 @@
 package org.example.soulofdarkness;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.example.soulofdarkness.Ui.GameView;
 import org.example.soulofdarkness.Utils.Input.InputHandler;
 import org.example.soulofdarkness.model.Armor;
+import org.example.soulofdarkness.model.Boots;
 import org.example.soulofdarkness.model.Chest;
+import org.example.soulofdarkness.model.Enemy;
 import org.example.soulofdarkness.model.Helmet;
 import org.example.soulofdarkness.model.Inventory;
 import org.example.soulofdarkness.model.Item;
@@ -14,11 +17,15 @@ import org.example.soulofdarkness.model.Potion;
 import org.example.soulofdarkness.model.Weapon;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -53,9 +60,11 @@ public class GameController {
     private Inventory inventory = new Inventory();
     private List<Chest> chests;
     private Stage primaryStage; // Fenêtre principale du jeu
+    private BattleController battleController = new BattleController();
     private static final int MAZE_WIDTH = 23; // Largeur du labyrinthe
     private static final int MAZE_HEIGHT = 19; // Hauteur du labyrinthe
     private GameView gameView; // Vue principale du jeu qui gère le labyrinthe et les personnages
+    private MediaPlayer mediaPlayer;
 
     // Méthode pour définir la fenêtre principale depuis l'extérieur
     public void setPrimaryStage(Stage primaryStage) {
@@ -76,6 +85,8 @@ public class GameController {
                 new javafx.scene.image.Image(getClass().getResource("/assets/Helmet.png").toString()));
         Armor basicArmor = new Armor("Basic Armor", 5,
                 new javafx.scene.image.Image(getClass().getResource("/assets/Armor.png").toString()));
+        Boots basicBoots = new Boots("Basic Boots", 5,
+                new javafx.scene.image.Image(getClass().getResource("/assets/BootsArmor.png").toString()));
 
         // Initialisation du joueur avec ses attributs de départ
         player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
@@ -83,6 +94,7 @@ public class GameController {
         player.getInventory().setWeapon(basicSword);
         player.getInventory().setHelmet(basicHelmet);
         player.getInventory().setArmor(basicArmor);
+        player.getInventory().setBoots(basicBoots);
 
         updateUI(); // Mise à jour de l'interface utilisateur avec les informations du joueur
     }
@@ -129,20 +141,39 @@ public class GameController {
         } else {
             chestID.setImage(null);
         }
+
+        Boots boots = player.getInventory().getBoots();
+        if (boots != null) {
+            bootsID.setImage(boots.getImage());
+        } else {
+            bootsID.setImage(null);
+        }
     }
 
     public void pickUpItemFromChest(Chest chest) {
         if (chest != null) {
             Item item = chest.getRandomItem();
+            gameNotificationID.setText("Item found: " + item.getName());
+            gameNotificationID.setTextFill(javafx.scene.paint.Color.WHITE);
             if (item instanceof Weapon) {
                 Weapon weapon = (Weapon) item;
                 player.equipeBetterWeapon(weapon);
+
             } else if (item instanceof Potion) {
                 Potion potion = (Potion) item;
                 int heal = potion.getHealingAmount();
                 player.setHealth(player.getHealth() + heal);
                 if (player.getHealth() > player.getMaxHealth()) {
                     player.setHealth(player.getMaxHealth());
+                } else if (item instanceof Armor) {
+                    Armor armor = (Armor) item;
+                    player.equipeBetterArmor(armor);
+                } else if (item instanceof Boots) {
+                    Boots boots = (Boots) item;
+                    player.equipeBetterBoots(boots);
+                } else if (item instanceof Helmet) {
+                    Helmet helmet = (Helmet) item;
+                    player.equipeBetterHelmet(helmet);
 
                 } else {
                     gameNotificationID.setText("Health of the player at max");
@@ -153,6 +184,39 @@ public class GameController {
             }
             updateUI();
         }
+    }
+
+    public void enemyBattle(Player player, Enemy enemy) throws IOException {
+
+        gameView.getMediaPlayer().stop(); // Stopper la musique de jeu
+
+        // Musique de combat
+        Media media = new Media(getClass().getResource("/sound/Battle.mp3").toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.01);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BattleFXML.fxml"));
+
+        loader.setController(battleController);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Battle");
+        stage.setScene(scene);
+
+        stage.setOnCloseRequest(event -> {
+            mediaPlayer.stop();
+            gameView.getMediaPlayer().play();
+        });
+
+        battleController.enemyBattle(player, enemy);
+        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        stage.initOwner(primaryStage);
+
+        stage.showAndWait();
+
     }
 
     // Lance le jeu avec une fenêtre spécifiée
@@ -177,7 +241,13 @@ public class GameController {
         InputHandler inputHandler = new InputHandler(gameView);
 
         // Configuration des événements clavier pour déplacer le joueur
-        gameView.setOnKeyPressed(event -> inputHandler.handleKeyPress(event));
+        gameView.setOnKeyPressed(event -> {
+            try {
+                inputHandler.handleKeyPress(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         gameView.setFocusTraversable(true); // Permet à la GameView de recevoir les événements clavier
         gameView.requestFocus(); // Met le focus sur la GameView pour démarrer les interactions
     }

@@ -3,6 +3,8 @@ package org.example.soulofdarkness.model;
 import javafx.scene.image.Image;
 
 public class Helmet implements Item {
+    private static int helmetCount = 0;
+    private final int id;
     private String name;
     private String description;
     private String type;
@@ -10,6 +12,7 @@ public class Helmet implements Item {
     private Image image;
 
     public Helmet(String name, int defense, Image image) {
+        this.id = helmetCount++;
         this.name = name;
         this.defense = defense;
         this.image = image;

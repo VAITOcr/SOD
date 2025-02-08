@@ -19,6 +19,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -47,6 +48,7 @@ public class GameView extends Pane {
 
     private Random random = new Random();
     private int currentTypeMaze;
+    private MediaPlayer mediaPlayer;
 
     private GameController gameController;
 
@@ -77,7 +79,7 @@ public class GameView extends Pane {
         // MediaPlayer pour la musique de fond
         String ostPath = getClass().getResource("/sound/GameOST.mp3").toString();
         Media media = new Media(ostPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
@@ -122,7 +124,7 @@ public class GameView extends Pane {
     }
 
     // Met à jour la position du joueur et vérifie les collisions
-    public void updatePlayerPosition(int playerX, int playerY) {
+    public void updatePlayerPosition(int playerX, int playerY) throws IOException {
         try {
             Thread.sleep(100);
             player.movePlayer(playerX, playerY);
@@ -153,11 +155,15 @@ public class GameView extends Pane {
         }
     }
 
+    public  MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     // Vérifie les collisions entre le joueur et les ennemis
-    private void checkEnemyCollision() {
+    private void checkEnemyCollision() throws IOException {
         for (Enemy enemy : enemies) {
             if (enemy.checkCollision(player.getX(), player.getY())) {
-                System.out.println("\uD83D\uDC80 Combat engagé avec un ennemi !");
+                gameController.enemyBattle(player, enemy);
             }
         }
     }
@@ -169,14 +175,10 @@ public class GameView extends Pane {
             if (chest.checkCollision(player.getX(), player.getY())) {
 
                 if (!chest.isOpen()) {
-                    // pick up the item
-                    Item foundItem = chest.getRandomItem();
-                    player.pickUpItems(foundItem);
-                    gameController.updateGameNotification("Vous avez trouvé: " + foundItem.getName() + " !");
-                    ;
+
                     gameController.pickUpItemFromChest(chest);
 
-                    // open the chest
+                    // open image for chest
                     chest.openChest();
                 }
 

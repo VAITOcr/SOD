@@ -10,6 +10,7 @@ public class Inventory {
     private Weapon weapon;
     private Helmet helmet;
     private Armor armor;
+    private Boots boots;
 
     public Inventory() {
         this.gold = new Gold();
@@ -43,6 +44,10 @@ public class Inventory {
         return armor;
     }
 
+    public Boots getBoots() {
+        return boots;
+    }
+
     public void setGold(Gold gold) {
         this.gold = gold;
     }
@@ -63,6 +68,10 @@ public class Inventory {
         this.armor = armor;
     }
 
+    public void setBoots(Boots boots) {
+        this.boots = boots;
+    }
+
     public void equipItem(Item item) {
         if (item instanceof Gold) {
             gold = (Gold) item;
@@ -72,6 +81,21 @@ public class Inventory {
             Weapon newWeapon = (Weapon) item;
             if (newWeapon.getDamage() > weapon.getDamage()) {
                 this.weapon = newWeapon;
+            }
+        } else if (item instanceof Helmet) {
+            Helmet newHelmet = (Helmet) item;
+            if (newHelmet.getDefense() > helmet.getDefense()) {
+                this.helmet = newHelmet;
+            }
+        } else if (item instanceof Armor) {
+            Armor newArmor = (Armor) item;
+            if (newArmor.getDefense() > armor.getDefense()) {
+                this.armor = newArmor;
+            }
+        } else if (item instanceof Boots) {
+            Boots newBoots = (Boots) item;
+            if (newBoots.getSpeed() > boots.getSpeed()) {
+                this.boots = newBoots;
             }
         }
     }

@@ -3,6 +3,8 @@ package org.example.soulofdarkness.model;
 import javafx.scene.image.Image;
 
 public class Weapon implements Item {
+    private static int weaponCount = 0;
+    private final int id;
     private String name;
     private int damage;
     private String type;
@@ -10,11 +12,16 @@ public class Weapon implements Item {
     private Image image;
 
     public Weapon(String name, int damage, String type, String description, Image image) {
+        this.id = weaponCount++;
         this.name = name;
         this.damage = damage;
         this.type = type;
         this.description = description;
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Image getImage() {
@@ -26,6 +33,8 @@ public class Weapon implements Item {
         switch (type) {
             case "Sword":
                 return new Image(getClass().getResource("/assets/Sword.png").toString());
+            case "Excalibur":
+                return new Image(getClass().getResource("/assets/Excalibur.png").toString());
             case "Dagger":
                 return new Image(getClass().getResource("/assets/Dagger.png").toString());
             case "Axe":

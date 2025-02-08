@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.Collections;
 
 import javafx.scene.image.Image;
@@ -41,14 +43,34 @@ public class Chest {
                         new Image(getClass().getResource("/assets/Potion.png").toString())),
                 new Weapon("Sword", 10, "Sword", "A sword that deals 10 damage.",
                         new Image(getClass().getResource("/assets/Sword.png").toString())),
+                new Weapon("Excalibur", 30, "Excalibur", "An excalibur that deals 30 damage.",
+                        new Image(getClass().getResource("/assets/Excalibur.png").toString())),
+                new Weapon("Sword", 5, "Sword", "A sword that deals 5 damage.",
+                        new Image(getClass().getResource("/assets/Sword.png").toString())),
+                new Weapon("Dagger", 10, "Dagger", "A dagger that deals 10 damage.",
+                        new Image(getClass().getResource("/assets/Dagger.png").toString())),
                 new Weapon("Dagger", 5, "Dagger", "A dagger that deals 5 damage.",
                         new Image(getClass().getResource("/assets/Dagger.png").toString())),
                 new Weapon("Axe", 15, "Axe", "An axe that deals 15 damage.",
                         new Image(getClass().getResource("/assets/Axe.png").toString())),
                 new Gold("Gold", 10, "Gold", "Coins that can be used to buy items and upgrade your character."),
-                new Gold("Gold", 5, "Gold", "Coins that can be used to buy items and upgrade your character.")));
-        new Helmet("Helmet", 5, new Image(getClass().getResource("/assets/Helmet.png").toString()));
-        new Helmet("Helmet of Protection", 20, new Image(getClass().getResource("/assets/Helmet.png").toString()));
+                new Gold("Gold", 5, "Gold", "Coins that can be used to buy items and upgrade your character."),
+                new Helmet("Helmet", 5, new Image(getClass().getResource("/assets/Helmet.png").toString())),
+                new Helmet("Helmet of Protection-Basic", 10,
+                        new Image(getClass().getResource("/assets/Helmet.png").toString())),
+                new Helmet("Helmet of Protection-Advanced", 20,
+                        new Image(getClass().getResource("/assets/Helmet.png").toString())),
+                new Armor("Armor", 5, new Image(getClass().getResource("/assets/Armor.png").toString())),
+                new Armor("Armor of Protection-Basic", 10,
+                        new Image(getClass().getResource("/assets/Armor.png").toString())),
+                new Armor("Armor of Protection-Advanced", 20,
+                        new Image(getClass().getResource("/assets/Armor.png").toString())),
+                new Boots("Boots", 5, new Image(getClass().getResource("/assets/BootsArmor.png").toString())),
+                new Boots("Boots of Protection-Basic", 10,
+                        new Image(getClass().getResource("/assets/BootsArmor.png").toString())),
+                new Boots("Boots of Protection-Advanced", 20,
+                        new Image(getClass().getResource("/assets/BootsArmor.png").toString()))));
+
     }
 
     public int getX() {
@@ -61,7 +83,8 @@ public class Chest {
 
     // it will return a random item
     public Item getRandomItem() {
-        return items.get(random.nextInt(items.size()));
+        Item item = items.get(random.nextInt(items.size()));
+        return item;
     }
 
     // it will return a list of random items

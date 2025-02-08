@@ -3,6 +3,8 @@ package org.example.soulofdarkness.model;
 import javafx.scene.image.Image;
 
 public class Armor implements Item {
+    private static int armorCount = 0;
+    private final int id;
     private String name;
     private int defense;
     private String type;
@@ -10,9 +12,14 @@ public class Armor implements Item {
     private Image image;
 
     public Armor(String name, int defense, Image image) {
+        this.id = armorCount++;
         this.name = name;
         this.defense = defense;
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

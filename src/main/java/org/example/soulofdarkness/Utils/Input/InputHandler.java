@@ -1,5 +1,7 @@
 package org.example.soulofdarkness.Utils.Input;
 
+import java.io.IOException;
+
 import org.example.soulofdarkness.Ui.GameView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,7 +17,7 @@ public class InputHandler {
     }
 
     // Méthode qui gère les événements de pression des touches
-    public void handleKeyPress(KeyEvent event) {
+    public void handleKeyPress(KeyEvent event) throws IOException {
         KeyCode key = event.getCode(); // Récupère la touche pressée
 
         // Récupère la position actuelle du joueur depuis GameView

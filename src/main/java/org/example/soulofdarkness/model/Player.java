@@ -195,4 +195,22 @@ public class Player {
         }
     }
 
+    public void equipeBetterArmor(Armor armor) {
+        if (armor.getDefense() > this.getInventory().getArmor().getDefense()) {
+            this.getInventory().setArmor(armor);
+        }
+    }
+
+    public void equipeBetterBoots(Boots boots) {
+        if (boots.getSpeed() > this.getInventory().getBoots().getSpeed()) {
+            this.getInventory().setBoots(boots);
+        }
+    }
+
+    public void equipeBetterHelmet(Helmet helmet) {
+        if (helmet.getDefense() > this.getInventory().getHelmet().getDefense()) {
+            this.getInventory().setHelmet(helmet);
+        }
+    }
+
 }

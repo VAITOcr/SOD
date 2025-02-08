@@ -5,6 +5,7 @@ import java.util.Random;
 import javafx.scene.image.Image;
 
 public class Enemy {
+    private int id;
     private int x, y;
     private static final Random random = new Random();
     private Image enemyImage = new Image(getClass().getResource("/assets/enemy1.png").toString());
@@ -12,13 +13,13 @@ public class Enemy {
     private Image enemyImage3 = new Image(getClass().getResource("/assets/wizard.png").toString());
 
     public Enemy(int[][] maze) {
+        this.id = random.nextInt(3);
         spawnEnemy(maze);
         assignRandomImage();
     }
 
     private void assignRandomImage() {
-        Random random = new Random();
-        switch (random.nextInt(3)) {
+        switch (id) {
             case 0:
                 this.enemyImage = enemyImage;
                 break;
@@ -29,6 +30,10 @@ public class Enemy {
                 this.enemyImage = enemyImage3;
                 break;
         }
+    }
+
+    public int getId() {
+        return id;
     }
 
     private void spawnEnemy(int[][] maze) {
