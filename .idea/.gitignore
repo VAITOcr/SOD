@@ -6,3 +6,28 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Dossiers générés par IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Fichiers de build
+/out/
+target/
+build/
+
+# Fichiers spécifiques à Eclipse
+.project
+.classpath
+.settings/
+
+# Binaires compilés
+*.class
+*.jar
+*.war
+*.ear
+
+# Cache de Gradle/Maven
+.gradle/
+.mvn/
