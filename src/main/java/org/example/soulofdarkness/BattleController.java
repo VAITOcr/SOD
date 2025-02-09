@@ -29,17 +29,24 @@ public class BattleController {
     private ImageView enemyImage;
     @FXML
     private ImageView background;
+    @FXML
+    private ImageView frameButtons;
+    @FXML
+    private ImageView attackButton;
+    @FXML
+    private ImageView defenseButton;
+    @FXML
+    private ImageView fleeButton;
 
     private Stage mainStage;
-    
 
     public void Chargement(Player player, Enemy enemy) {
 
     }
 
     public void enemyBattle(Player player, Enemy enemy) throws IOException {
+        System.out.println("BattleController player instance: " + player.hashCode());
 
-        
         int enemyType = enemy.getId();
 
         playerImage.setImage(new javafx.scene.image.Image(getClass().getResource("/assets/Player.png").toString()));
@@ -50,6 +57,23 @@ public class BattleController {
         } else if (enemyType == 2) {
             enemyImage.setImage(new Image(getClass().getResource("/assets/wizard.png").toString()));
         }
+
+        buttonActions(player, enemy);
     }
 
+    public void buttonActions(Player player, Enemy enemy) throws IOException {
+        attackButton.setOnMouseClicked(event -> {
+            player.attack(enemy);
+            if (enemy.getHealth() <= 0) {
+                player.destroyEnemy(enemy);
+                Stage stage = (Stage) attackButton.getScene().getWindow();
+                stage.close();
+            }
+            enemy.attack(player);
+
+            if (player.getHealth() <= 0) {
+                player.gameOver();
+            }
+        });
+    }
 }

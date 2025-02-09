@@ -35,6 +35,10 @@ public class Boots implements Item {
         return type;
     }
 
+    public int getDefense() {
+        return 0;
+    }
+
     public String getDescription() {
         return description;
     }

@@ -11,6 +11,8 @@ public class Enemy {
     private Image enemyImage = new Image(getClass().getResource("/assets/enemy1.png").toString());
     private Image enemyImage2 = new Image(getClass().getResource("/assets/enemy2.png").toString());
     private Image enemyImage3 = new Image(getClass().getResource("/assets/wizard.png").toString());
+    private int health = 40;
+    private int defense = 5;
 
     public Enemy(int[][] maze) {
         this.id = random.nextInt(3);
@@ -34,6 +36,48 @@ public class Enemy {
 
     public int getId() {
         return id;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getAttack() {
+        return 10;
+    }
+
+    public int takeDamage(int damage) {
+        if (damage > 0) {
+            health -= damage;
+            return damage;
+        } else {
+            return 0;
+        }
+    }
+
+    public void destroyEnemy(Enemy enemy) {
+        enemy.setX(-1);
+        enemy.setY(-1);
+    }
+
+    public void attack(Player player) {
+        int damage = getAttack() - player.getDefense();
+        if (damage < 0) {
+            damage = 0;
+        }
+        player.takeDamage(damage);
+    }
+
+    public int setX(int x) {
+        return this.x = x;
+    }
+
+    public int setY(int y) {
+        return this.y = y;
+    }
+
+    public int getDefense() {
+        return defense;
     }
 
     private void spawnEnemy(int[][] maze) {

@@ -20,6 +20,21 @@
             </ImageView>
             <ImageView fx:id="enemyImage" fitHeight="184.0" fitWidth="124.0" layoutX="450.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="playerImage" fitHeight="195.0" fitWidth="133.0" layoutX="65.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="attackButton" accessibleRole="BUTTON" fitHeight="142.0" fitWidth="200.0" layoutX="20.0" layoutY="371.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../assets/buttonBattle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="defenseButton" accessibleRole="BUTTON" fitHeight="142.0" fitWidth="200.0" layoutX="228.0" layoutY="371.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../assets/buttonBattle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fleeButton" accessibleRole="BUTTON" fitHeight="142.0" fitWidth="200.0" layoutX="441.0" layoutY="371.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../assets/buttonBattle.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

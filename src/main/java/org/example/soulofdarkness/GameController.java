@@ -90,8 +90,9 @@ public class GameController {
 
         // Initialisation du joueur avec ses attributs de départ
         player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
-                new javafx.scene.image.Image(getClass().getResource("/assets/Player.png").toString()));
-        player.getInventory().setWeapon(basicSword);
+                new javafx.scene.image.Image(getClass().getResource("/assets/Player.png").toString()),
+                GameController.this);
+        player.getInventory().setRightHand(basicSword);
         player.getInventory().setHelmet(basicHelmet);
         player.getInventory().setArmor(basicArmor);
         player.getInventory().setBoots(basicBoots);
@@ -114,14 +115,14 @@ public class GameController {
         expLabel.setText(
                 "Level: " + player.getLevel() + " Exp: " + player.getExperience() + "/" + player.getMaxExperience());
 
-        Weapon rightHand = player.getInventory().getRightHand().getWeapon();
+        Weapon rightHand = player.getInventory().getRightHand();
         if (rightHand != null) {
             rightHandID.setImage(rightHand.getImage());
         } else {
             rightHandID.setImage(null);
         }
 
-        Weapon leftHand = player.getInventory().getLeftHand().getWeapon();
+        Weapon leftHand = player.getInventory().getLeftHand();
         if (leftHand != null) {
             leftHandID.setImage(leftHand.getImage());
         } else {
@@ -188,14 +189,14 @@ public class GameController {
 
     public void enemyBattle(Player player, Enemy enemy) throws IOException {
 
-        gameView.getMediaPlayer().stop(); // Stopper la musique de jeu
+        gameView.getMediaPlayer().pause(); // Stopper la musique de jeu
 
         // Musique de combat
         Media media = new Media(getClass().getResource("/sound/Battle.mp3").toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.01);
+        mediaPlayer.setVolume(0.02);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BattleFXML.fxml"));
 
@@ -206,16 +207,20 @@ public class GameController {
         stage.setTitle("Battle");
         stage.setScene(scene);
 
-        stage.setOnCloseRequest(event -> {
-            mediaPlayer.stop();
-            gameView.getMediaPlayer().play();
-        });
-
-        battleController.enemyBattle(player, enemy);
+        battleController.enemyBattle(this.player, enemy);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         stage.initOwner(primaryStage);
 
         stage.showAndWait();
+
+        if (enemy.getHealth() <= 0) {
+            player.addExperience(10);
+            mediaPlayer.stop();
+            updateUI();
+        } else {
+            System.out.println("Enemy health: " + enemy.getHealth());
+        }
+        gameView.getMediaPlayer().play();
 
     }
 
@@ -223,6 +228,12 @@ public class GameController {
     public void startGame(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         startGame();
+    }
+
+    // supprimer enemy
+    public void removeEnemyFromMaze(Enemy enemy) {
+        gameView.removeEnemyFromMaze(enemy);
+
     }
 
     // Initialise la vue du jeu et configure les contrôles

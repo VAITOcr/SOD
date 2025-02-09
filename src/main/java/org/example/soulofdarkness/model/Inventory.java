@@ -7,7 +7,8 @@ public class Inventory {
 
     private Gold gold;
     private Potion potion;
-    private Weapon weapon;
+    private Weapon leftHand;
+    private Weapon rightHand;
     private Helmet helmet;
     private Armor armor;
     private Boots boots;
@@ -15,13 +16,8 @@ public class Inventory {
     public Inventory() {
         this.gold = new Gold();
         this.potion = new Potion(null, null, null, 0, null);
-        this.weapon = new Weapon(null, 0, null, null, null);
-    }
-
-    public Inventory(Gold gold, Potion potion, Weapon weapon) {
-        this.gold = gold;
-        this.potion = potion;
-        this.weapon = weapon;
+        this.leftHand = null;
+        this.rightHand = null;
     }
 
     public Gold getGold() {
@@ -32,8 +28,12 @@ public class Inventory {
         return potion;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public Weapon getLeftHand() {
+        return leftHand;
+    }
+
+    public Weapon getRightHand() {
+        return rightHand;
     }
 
     public Helmet getHelmet() {
@@ -56,8 +56,12 @@ public class Inventory {
         this.potion = potion;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setLeftHand(Weapon leftHand) {
+        this.leftHand = leftHand;
+    }
+
+    public void setRightHand(Weapon rightHand) {
+        this.rightHand = rightHand;
     }
 
     public void setHelmet(Helmet helmet) {
@@ -79,8 +83,10 @@ public class Inventory {
             potion = (Potion) item;
         } else if (item instanceof Weapon) {
             Weapon newWeapon = (Weapon) item;
-            if (newWeapon.getDamage() > weapon.getDamage()) {
-                this.weapon = newWeapon;
+            if (rightHand == null) {
+                rightHand = newWeapon;
+            } else if (rightHand.getAttack() < newWeapon.getAttack()) {
+                rightHand = newWeapon;
             }
         } else if (item instanceof Helmet) {
             Helmet newHelmet = (Helmet) item;
@@ -104,17 +110,9 @@ public class Inventory {
         ArrayList<Item> items = new ArrayList<>();
         items.add(gold);
         items.add(potion);
-        items.add(weapon);
+        items.add(rightHand);
+        items.add(leftHand);
         return items;
-    }
-
-    // Exemple d'utilisation des mains droite et gauche
-    public Inventory getRightHand() {
-        return new Inventory(null, null, weapon);
-    }
-
-    public Inventory getLeftHand() {
-        return new Inventory(null, potion, null);
     }
 
 }

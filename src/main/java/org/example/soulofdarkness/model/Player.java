@@ -1,5 +1,8 @@
 package org.example.soulofdarkness.model;
 
+import org.example.soulofdarkness.GameController;
+import org.example.soulofdarkness.Ui.GameView;
+
 import javafx.scene.image.Image;
 
 public class Player {
@@ -15,12 +18,14 @@ public class Player {
     private int maxExperience = 100;
     private Image imagePlayer;
     private Inventory inventory = new Inventory();
+    private GameController gameController;
 
     public Player() {
+        this.inventory = new Inventory();
     }
 
     public Player(int x, int y, int health, int maxHealth, int experience, int level, int attack, int defense,
-            int speed, int maxExperience, Inventory inventory, Image imagePlayer) {
+            int speAed, int maxExperience, Inventory inventory, Image imagePlayer, GameController gameController) {
         this.x = x;
         this.y = y;
         this.health = health;
@@ -33,6 +38,7 @@ public class Player {
         this.maxExperience = maxExperience;
         this.inventory = inventory;
         this.imagePlayer = imagePlayer;
+        this.gameController = gameController;
     }
 
     public int getX() {
@@ -60,23 +66,45 @@ public class Player {
     }
 
     public int getAttack() {
-        if (inventory.getLeftHand().getWeapon() != null) {
-            attack += inventory.getLeftHand().getWeapon().getAttack();
+        int totalAttack = this.attack; // Valeur de base du joueur (10)
+        System.out.println("Base attack: " + this.attack);
+
+        if (this.inventory != null) {
+            if (this.inventory.getRightHand() != null) {
+                int bonusRight = this.inventory.getRightHand().getDamage();
+                System.out.println("Right hand bonus: " + bonusRight);
+                totalAttack += bonusRight;
+            } else {
+                System.out.println("No weapon equipped in right hand.");
+            }
+            if (this.inventory.getLeftHand() != null) {
+                int bonusLeft = this.inventory.getLeftHand().getDamage();
+                System.out.println("Left hand bonus: " + bonusLeft);
+                totalAttack += bonusLeft;
+            } else {
+                System.out.println("No weapon equipped in left hand.");
+            }
         }
-        if (inventory.getRightHand().getWeapon() != null) {
-            attack += inventory.getRightHand().getWeapon().getAttack();
-        }
-        return attack;
+        System.out.println("Total attack: " + totalAttack);
+        return totalAttack;
     }
 
     public int getDefense() {
-        if (inventory.getHelmet() != null) {
-            defense += inventory.getHelmet().getDefense();
+        int totalDefense = this.defense; // La valeur de base de la defense du joueur
+
+        if (this.inventory != null) {
+            if (this.inventory.getHelmet() != null) {
+                totalDefense += this.inventory.getHelmet().getDefense();
+            }
+            if (this.inventory.getArmor() != null) {
+                totalDefense += this.inventory.getArmor().getDefense();
+            }
+            if (this.inventory.getBoots() != null) {
+                totalDefense += this.inventory.getBoots().getDefense();
+            }
         }
-        if (inventory.getArmor() != null) {
-            defense += inventory.getArmor().getDefense();
-        }
-        return defense;
+
+        return totalDefense;
     }
 
     public int getSpeed() {
@@ -174,6 +202,30 @@ public class Player {
         return imagePlayer;
     }
 
+    public void attack(Enemy enemy) {
+        int totalAttack = getAttack();
+        int enemyDefense = enemy.getDefense();
+        int damage = totalAttack - enemyDefense;
+        if (damage < 0) {
+            damage = 0;
+        }
+        System.out.println("Player total attack: " + totalAttack);
+        System.out.println("Enemy defense: " + enemyDefense);
+        System.out.println("Damage: " + damage);
+        enemy.takeDamage(damage);
+        System.out.println("You hit the enemy for " + damage + " damage.");
+        System.out.println("Enemy health: " + enemy.getHealth());
+
+        if (enemy.getHealth() <= 0) {
+            addExperience(10);
+            destroyEnemy(enemy);
+        }
+    }
+
+    public void destroyEnemy(Enemy enemy) {
+        gameController.removeEnemyFromMaze(enemy);
+    }
+
     public void setImagePlayer(Image imagePlayer) {
         this.imagePlayer = imagePlayer;
     }
@@ -190,8 +242,8 @@ public class Player {
     }
 
     public void equipeBetterWeapon(Weapon weapon) {
-        if (weapon.getDamage() > this.getInventory().getWeapon().getDamage()) {
-            this.getInventory().setWeapon(weapon);
+        if (weapon.getDamage() > this.getInventory().getRightHand().getDamage()) {
+            this.getInventory().setRightHand(weapon);
         }
     }
 

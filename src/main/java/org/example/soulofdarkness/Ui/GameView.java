@@ -34,7 +34,7 @@ public class GameView extends Pane {
     private Inventory inventory; // Inventaire du joueur
     private List<Enemy> enemies; // Liste des ennemis présents dans le labyrinthe
     private List<Chest> chests; // Liste des coffres presents dans le labyrinthe
-    private Canvas currentCanvas; // Canevas actuel pour le rendu
+    public Canvas currentCanvas; // Canevas actuel pour le rendu
     private Canvas nextCanvas; // Canevas pour les transitions de labyrinthe
 
     private Image wallImage; // Image des murs
@@ -68,7 +68,7 @@ public class GameView extends Pane {
 
         // Initialisation du joueur à la position de départ (1,1)
         this.player = new Player(1, 1, 100, 100, 0, 1, 10, 5, 5, 100, inventory,
-                new Image(getClass().getResource("/assets/Player.png").toString()));
+                new Image(getClass().getResource("/assets/Player.png").toString()), gameController);
 
         // Création du canevas pour le rendu du labyrinthe
         this.currentCanvas = new Canvas(width * TILE_SIZE, height * TILE_SIZE);
@@ -155,7 +155,7 @@ public class GameView extends Pane {
         }
     }
 
-    public  MediaPlayer getMediaPlayer() {
+    public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
 
@@ -278,8 +278,23 @@ public class GameView extends Pane {
         return maze;
     }
 
+    public GameController getGameController() {
+        return gameController;
+    }
+
     // Getter pour récupérer la liste des ennemis
     public List<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void removeEnemyFromMaze(Enemy enemy) {
+        List<Enemy> enemiesBackUp = enemies; // Sauvegarder une copie des ennemis
+        enemies = new ArrayList<>(); // Vider la liste des ennemis
+        for (Enemy e : enemiesBackUp) {
+            if (e.getX() != enemy.getX() || e.getY() != enemy.getY()) {
+                enemies.add(e);
+            }
+        }
+        drawMaze(currentCanvas); // Rafraîchir l'affichage du labyrinthe
     }
 }

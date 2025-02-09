@@ -52,7 +52,7 @@ public class Weapon implements Item {
     }
 
     public int getDamage() {
-        return damage;
+        return this.damage;
     }
 
     public String getType() {
@@ -78,6 +78,6 @@ public class Weapon implements Item {
     }
 
     public int getAttack() {
-        return damage;
+        return this.damage;
     }
 }
