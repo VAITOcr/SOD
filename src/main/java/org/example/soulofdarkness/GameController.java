@@ -224,7 +224,7 @@ public class GameController {
 
     // supprimer enemy
     public void removeEnemyFromMaze(Enemy enemy) {
-        gameView.removeEnemyFromMaze(enemy);
+        gameView.removeEnemyFromMaze(enemy); // appeler la méthode Supprimer l'ennemi du labyrinthe
 
     }
 

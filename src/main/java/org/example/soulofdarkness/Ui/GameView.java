@@ -292,12 +292,15 @@ public class GameView extends Pane {
         return enemies;
     }
 
-    public void removeEnemyFromMaze(Enemy enemy) {
-        List<Enemy> enemiesBackUp = enemies; // Sauvegarder une copie des ennemis
-        enemies = new ArrayList<>(); // Vider la liste des ennemis
-        for (Enemy e : enemiesBackUp) {
-            if (e.getX() != enemy.getX() || e.getY() != enemy.getY()) {
-                enemies.add(e);
+    public void removeEnemyFromMaze(Enemy enemy) { // Supprimer l'ennemi du labyrinthe en prenant une entité ennemi en
+                                                   // argument
+        List<Enemy> enemiesBackUp = enemies; // Sauvegarder une copie des ennemis actuels pour laisser le labyrinthe
+                                             // intact
+        enemies = new ArrayList<>(); // Vider la liste des ennemis pour laisser le labyrinthe intact
+        for (Enemy e : enemiesBackUp) { // Parcourir la liste des ennemis actuels
+            if (e.getX() != enemy.getX() || e.getY() != enemy.getY()) { // S'il s'agit de l'ennemi à supprimer qui est
+                                                                        // mis dans les arguments
+                enemies.add(e); // Ajouter l'ennemi à la nouvelle liste si ce n'est pas l'ennemi à supprimer
             }
         }
         drawMaze(currentCanvas); // Rafraîchir l'affichage du labyrinthe
