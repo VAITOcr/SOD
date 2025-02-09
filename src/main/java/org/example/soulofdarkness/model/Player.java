@@ -108,7 +108,16 @@ public class Player {
     }
 
     public int getSpeed() {
-        return speed;
+        int totalSpeed = this.speed; // La valeur de base de la vitesse du joueur
+
+        if (this.inventory != null) {
+            if (this.inventory.getBoots() != null) {
+                totalSpeed += this.inventory.getBoots().getSpeed();
+            } else {
+                System.out.println("No boots equipped.");
+            }
+        }
+        return totalSpeed;
     }
 
     public int getMaxExperience() {

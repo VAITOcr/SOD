@@ -13,6 +13,8 @@ public class Enemy {
     private Image enemyImage3 = new Image(getClass().getResource("/assets/wizard.png").toString());
     private int health = 40;
     private int defense = 5;
+    private int attack = 20;
+    private int speed = 5;
 
     public Enemy(int[][] maze) {
         this.id = random.nextInt(3);
@@ -38,12 +40,17 @@ public class Enemy {
         return id;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public int getHealth() {
         return health;
     }
 
     public int getAttack() {
-        return 10;
+
+        return attack;
     }
 
     public int takeDamage(int damage) {
@@ -55,17 +62,23 @@ public class Enemy {
         }
     }
 
-    public void destroyEnemy(Enemy enemy) {
-        enemy.setX(-1);
-        enemy.setY(-1);
-    }
-
     public void attack(Player player) {
-        int damage = getAttack() - player.getDefense();
+        int totalAttack = getAttack();
+        int playerDefense = player.getDefense();
+        int damage = totalAttack - playerDefense;
         if (damage < 0) {
             damage = 0;
         }
+        System.out.println("Enemy total attack: " + totalAttack);
+        System.out.println("Player defense: " + playerDefense);
+        System.out.println("Damage: " + damage);
         player.takeDamage(damage);
+        System.out.println("The enemy hit you for " + damage + " damage.");
+        System.out.println("Your health: " + player.getHealth());
+
+        if (player.getHealth() <= 0) {
+            player.gameOver();
+        }
     }
 
     public int setX(int x) {

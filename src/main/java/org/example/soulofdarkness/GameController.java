@@ -191,12 +191,6 @@ public class GameController {
 
         gameView.getMediaPlayer().pause(); // Stopper la musique de jeu
 
-        // Musique de combat
-        Media media = new Media(getClass().getResource("/sound/Battle.mp3").toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.02);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BattleFXML.fxml"));
 
@@ -210,12 +204,10 @@ public class GameController {
         battleController.enemyBattle(this.player, enemy);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         stage.initOwner(primaryStage);
-
         stage.showAndWait();
 
         if (enemy.getHealth() <= 0) {
             player.addExperience(10);
-            mediaPlayer.stop();
             updateUI();
         } else {
             System.out.println("Enemy health: " + enemy.getHealth());
