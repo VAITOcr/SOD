@@ -10,6 +10,7 @@ import org.example.soulofdarkness.model.Player;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -130,7 +131,11 @@ public class GameView extends Pane {
             player.movePlayer(playerX, playerY);
             checkEnemyCollision();
             checkChestCollision();
-            moveEnemies();
+            PauseTransition pauseTransition = new PauseTransition(Duration.millis(1000));
+            pauseTransition.setOnFinished(event -> {
+                moveEnemies();
+            });
+            pauseTransition.play();
 
             // Vérifie si le joueur a atteint la sortie pour générer un nouveau labyrinthe
             if (isExitReached(playerX, playerY)) {
