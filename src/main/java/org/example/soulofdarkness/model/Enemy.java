@@ -104,12 +104,12 @@ public class Enemy {
     }
 
     public void moveRandomly(int[][] maze) {
-        int[] dx = { 0, 0, -1, 1 };
-        int[] dy = { -1, 1, 0, 0 };
-        int dir = random.nextInt(4);
+        int[] dx = { 0, 0, -1, 1 }; // Directions possibles (vers le haut, vers le bas, vers la gauche, vers la droite)
+        int[] dy = { -1, 1, 0, 0 }; // Directions possibles (vers le haut, vers le bas, vers la gauche, vers la droite)
+        int dir = random.nextInt(4); // Direction choisie aleatoirement
 
-        int newX = x + dx[dir];
-        int newY = y + dy[dir];
+        int newX = x + dx[dir];  // Nouvelles coordonnées
+        int newY = y + dy[dir];  // Nouvelles coordonnées
 
         if (maze[newY][newX] == 1) { // L'ennemi ne peut se déplacer que sur les chemins
             x = newX;

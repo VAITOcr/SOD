@@ -127,7 +127,7 @@ public class GameView extends Pane {
     // Met à jour la position du joueur et vérifie les collisions
     public void updatePlayerPosition(int playerX, int playerY) throws IOException {
         try {
-            Thread.sleep(100);
+            Thread.sleep(100); // Pause de 100 ms
             player.movePlayer(playerX, playerY);
             checkEnemyCollision();
             checkChestCollision();
